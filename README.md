@@ -5,6 +5,7 @@
 - [External Links](#external-links)
 - [Installation and usage](#Installation-and-usage)
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
+- [Discussions](#Discussions)
 - [Citation](#citation)
 
 ## External Links
@@ -52,4 +53,7 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 
 ### Results on Toy Example
 <img src="./imgs/Beale2.gif" width="70%"/>
+
+## Discussions
+
 ## Citation
