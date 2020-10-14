@@ -63,7 +63,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Please contact me if you want to collaborate and improve it.
 #### Discussion on algorithms
-* __Weight Decay__: 
+##### __Weight Decay__: 
 
 - Decoupling: <br>
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
