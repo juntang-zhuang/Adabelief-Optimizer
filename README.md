@@ -52,6 +52,6 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 
 ### Results on Toy Example
 
-<img src="https://github.com/juntang-zhuang/Adabelief-Optimizer/imgs/Beale2.gif)" width=70%/>
+<img src="./imgs/Beale2.gif)" width=70%/>
 
 ## Citation
