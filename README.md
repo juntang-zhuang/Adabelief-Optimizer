@@ -65,7 +65,10 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 #### Discussion on algorithms
 * __Weight Decay__: 
 
-** Decoupling:
-   Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is 
+-- Decoupling: <br>
+   Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
+
+-- Fixed or changing ratio for weight decay: <br>
+   
 
 ## Citation
