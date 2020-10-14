@@ -43,6 +43,6 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 
 ### Results on Toy Example
 
-<video width="320" height="240">
-  <source src="imgs/Beale2.mp4" type="video/mp4">
-</video> 
+<video id="home1" controls="" preload="" width="80%" autoplay='True' loop='True'> 
+                <source type="video/mp4" src="imgs/Beale2.mp4" /> 
+</video>
