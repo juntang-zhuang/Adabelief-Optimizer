@@ -1,5 +1,10 @@
-# Adabelief-Optimizer
-### NeurIPS 2020 Spotlight  "AdaBelief Optimizer: Adapting stepsizes by the belief in observed gradients". 
+<h1 align="center">AdaBelief Optimizer: Adapting stepsizes by the belief in observed gradients </h1>
+<h4 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h4>
+
+## Table of Contents
+- [Introduction](#Installation and usage)
+- [Reproduce results in the paper ](#Reproduce results in the paper)
+- [Citation](#citation)
 Propose an optimizer that trains fast as Adam, generalizes well as SGD, and is stable to train GANs. 
 
 Project page: https://juntang-zhuang.github.io/adabelief/ <br>
@@ -7,7 +12,7 @@ arXiv: <br>
 reddit: <br>
 twitter: <br>
 
-# Installation from pip and usage
+## Installation and usage
 
 ### PyTorch implementations
 #### AdaBelief
@@ -35,7 +40,7 @@ from adabelief_tf impoty AdaBeliefOptimizer
 optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
 
-# Re-produce results in the paper 
+## Reproduce results in the paper 
 #### (Comparison with 8 other optimizers: SGD, Adam, AdaBound, RAdam, AdamW, Yogi, MSVAG, Fromage)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 ### Results on Image Recongnition 
@@ -47,4 +52,4 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 ### Results on Toy Example
 ![](imgs/Beale2.gif)
 
-# Please cite our paper if your find it useful
+# Citation
