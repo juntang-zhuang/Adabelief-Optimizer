@@ -30,5 +30,6 @@ from adabelief_tf impoty AdaBeliefOptimizer
 optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
 
-# Re-produce results in the paper
+# Re-produce results in the paper (Comparison with 8 other optimizers)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
+### Results on Image Recongnition 
