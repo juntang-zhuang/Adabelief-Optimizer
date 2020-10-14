@@ -52,5 +52,5 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 
 ### Results on Toy Example
 
-![](imgs/Beale2.gif =250x250)
+![](imgs/Beale2.gif)
 ## Citation
