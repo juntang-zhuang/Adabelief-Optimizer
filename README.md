@@ -69,7 +69,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Please contact me if you want to collaborate and improve it.
 #### Discussion on algorithms
-##### __Weight Decay__: 
+##### Weight Decay: 
 - Decoupling (argument ```weight_decouple (default:False)``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
 
@@ -78,6 +78,11 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
    (2) If ```weight_decouple == True```: <br>
         <ul>  If ```fixed_decay == False```, the weight is multiplied by ``` 1 -lr x weight_decay``` </ul> 
         <ul>  If ```fixed_decay == True```, the weight is multiplied by ```1 - weight_decay``` </ul>
+
+- What is the acutal weight-decay we are using? <br>
+   This is seldom discussed in the literature, but personally I think it's very important. When we set ```weight_decay=1e-4``` for SGD, the weight is scaled by ```1 - lr x weight_decay```. Two points need to be emphasized: (1) ```lr``` in SGD is typically larger than Adam (0.1 vs 0.001), so the weight decay in Adam needs to be set as a larger number to compensate. (2) ```lr``` decays, this means typically we use a larger weight decay in early phases, and use a small weight decay in late phases.
+
+#### Epsilon:
 
 
 ## Citation
