@@ -6,7 +6,6 @@
 - [Installation and usage](#Installation-and-usage)
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
-Propose an optimizer that trains fast as Adam, generalizes well as SGD, and is stable to train GANs. 
 
 ## External Links
 Project page: https://juntang-zhuang.github.io/adabelief/ <br>
