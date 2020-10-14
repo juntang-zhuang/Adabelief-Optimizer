@@ -2,10 +2,10 @@
 ### NeurIPS 2020 Spotlight  "AdaBelief Optimizer: Adapting stepsizes by the belief in observed gradients". 
 Propose an optimizer that trains fast as Adam, generalizes well as SGD, and is stable to train GANs. 
 
-Project page: https://juntang-zhuang.github.io/adabelief/
-arXiv:
-reddit:
-twitter:
+Project page: https://juntang-zhuang.github.io/adabelief/ <br>
+arXiv: <br>
+reddit: <br>
+twitter: <br>
 
 # Installation from pip and usage
 
