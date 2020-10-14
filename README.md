@@ -42,7 +42,4 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 <img src="imgs/GAN.png" width="70%"/>
 
 ### Results on Toy Example
-
-<video id="home1" controls="" preload="" width="80%" autoplay='True' loop='True'> 
-                <source type="video/mp4" src="imgs/Beale2.mp4" /> 
-</video>
+![](imgs/Beale2.gif)
