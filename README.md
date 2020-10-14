@@ -51,6 +51,6 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 <img src="imgs/GAN.png" width="70%"/>
 
 ### Results on Toy Example
-<img src="https://github.com/juntang-zhuang/Adabelief-Optimizer/tree/master/imgs/Beal2.gif" width="70%"/>
+<p align="center"><img width="100%" src="imgs/Beal2.gif"/></p>
 
 ## Citation
