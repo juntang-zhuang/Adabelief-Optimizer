@@ -71,8 +71,8 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 - Fixed ratio (argument ```fixed_decay (default: False)``` appears in ```AdaBelief```): <br>
    (1) If ```weight_decouple == False```, then this argument does not affect optimization. <br>
    (2) If ```weight_decouple == True```: <br>
-<br />      If ```fixed_decay == False```, the weight is multiplied by ``` 1 -lr x weight_decay``` <br>
-<br />      If ```fixed_decay == True```, the weight is multiplied by ```1 - weight_decay``` 
+<br        />      If ```fixed_decay == False```, the weight is multiplied by ``` 1 -lr x weight_decay``` <br>
+<br        />      If ```fixed_decay == True```, the weight is multiplied by ```1 - weight_decay``` 
 
 
 ## Citation
