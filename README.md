@@ -1,5 +1,5 @@
 <h1 align="center">AdaBelief Optimizer</h1>
-<h4 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h4>
+<h3 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h3>
 
 ## Table of Contents
 - [External Links](#external-links)
