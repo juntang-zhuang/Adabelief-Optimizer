@@ -8,24 +8,27 @@ See project page: https://juntang-zhuang.github.io/adabelief/
 ### PyTorch implementations
 #### AdaBelief
 ```
-!pip install adabelief-pytorch
-
+pip install adabelief-pytorch
+``
+```
 from adabelief_pytorch import AdaBelief
 optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999))
 ```
 
 #### Adabelief with Ranger optimizer
 ```
-!pip install ranger-adabelief
-
+pip install ranger-adabelief
+```
+```
 from ranger_adabelief import RangerAdaBelief
 optimizer = RangerAdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999))
 ```
 
 ### Tensorflow implementation
 ```
-!pip install adabelief-tf
-
+pip install adabelief-tf
+```
+```
 from adabelief_tf impoty AdaBeliefOptimizer
 optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
