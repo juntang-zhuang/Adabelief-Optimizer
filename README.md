@@ -16,7 +16,7 @@ twitter: <br>
 
 ## Installation and usage
 
-### PyTorch implementations
+### 1. PyTorch implementations
 #### AdaBelief
 ```
 pip install adabelief-pytorch
@@ -33,7 +33,7 @@ pip install ranger-adabelief
 from ranger_adabelief import RangerAdaBelief
 optimizer = RangerAdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999))
 ```
-### Tensorflow implementation
+### 2. Tensorflow implementation
 ```
 pip install adabelief-tf
 ```
