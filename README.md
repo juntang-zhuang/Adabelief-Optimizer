@@ -65,14 +65,14 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 #### Discussion on algorithms
 ##### __Weight Decay__: 
 
-- Decoupling (argument ```weight_decouple (default:False)```): <br>
+- Decoupling (argument ```weight_decouple (default:False)``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
 
-- Fixed or changing ratio for weight decay (argument ```fixed_decay (default: False)```): <br>
+- Fixed ratio (argument ```fixed_decay (default: False)``` appears in ```AdaBelief```): <br>
    (1) If ```weight_decouple == False```, then this argument does not affect optimization. <br>
    (2) If ```weight_decouple == True```: <br>
        If ```fixed_decay == False```, the weight is multiplied by ``` 1 -lr x weight_decay``` <br>
        If ```fixed_decay == True```, the weight is multiplied by ```1 - weight_decay``` 
-   
+
 
 ## Citation
