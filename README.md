@@ -48,9 +48,10 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 <img src="./imgs/image_recog.png" width="70%"/>
 
 ### Results on GAN training
-<center>
+<p align='center>
 <img src="./imgs/GAN.png" width="70%"/>
-</center>
+</p>
+
 ### Results on Toy Example
 <img src="./imgs/Beale2.gif" width="70%"/>
 ## Citation
