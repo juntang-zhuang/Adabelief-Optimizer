@@ -5,7 +5,7 @@
 - [External Links](#external-links)
 - [Installation and usage](#Installation-and-usage)
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
-- [Discussions (Important, please read before you use it)](#Discussions)
+- [Discussions (Important, please read before using)](#Discussions)
 - [Citation](#citation)
 
 ## External Links
