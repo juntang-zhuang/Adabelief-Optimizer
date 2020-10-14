@@ -46,13 +46,19 @@ optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12)
 #### (Comparison with 8 other optimizers: SGD, Adam, AdaBound, RAdam, AdamW, Yogi, MSVAG, Fromage)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 ### Results on Image Recongnition 
+<p align="center">
 <img src="./imgs/image_recog.png" width="70%"/> 
+</p>
 
 ### Results on GAN training
+<p align="center">
 <img src="./imgs/GAN.png" width="70%"/>
+</p>
 
 ### Results on Toy Example
+<p align="center">
 <img src="./imgs/Beale2.gif" width="70%"/>
+</p>
 
 ## Discussions
 
