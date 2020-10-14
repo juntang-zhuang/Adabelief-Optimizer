@@ -81,11 +81,17 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 #### Epsilon:
 AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training and LSTM, it's set as ```1e-12```. We recommend try different ```epsilon``` values in practice, and sweep through a large region, e.g. ```1e-8, 1e-10, 1e-12, 1e-14, 1e-16, 1e-18```. Typically a smaller ```epsilon``` makes it more adaptive.
 
-### Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
+#### Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
 Whether to turn on the rectification as in RAdam.
 
 #### Details to reproduce results
 * Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now.
+|   Task   | beta1 | beta2 | epsilon | weight_decay | weight_decouple | fixed_decay | rectify | amsgrad |
+|:--------:|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
+| Cifar    | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False       | False   | False   |
+| ImageNet | 0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
+| GAN      | 0.5   | 0.999 | 1e-12   | 0            | False           | False       | False   | False   |
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Please contact me if you want to collaborate and improve it.
+
 ## Citation
