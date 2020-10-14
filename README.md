@@ -51,5 +51,7 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 <img src="imgs/GAN.png" width="70%"/>
 
 ### Results on Toy Example
-![](imgs/Beal2.gif)
+
+<img src="imgs/Beal2.gif" />
+
 ## Citation
