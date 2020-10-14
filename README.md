@@ -3,13 +3,29 @@ Repository for NeurIPS 2020 Spotlight  "AdaBelief Optimizer: Adapting stepsizes 
 
 See project page: https://juntang-zhuang.github.io/adabelief/
 
-# Install from pip
+# Installation from pip and usage
+
+## PyTorch implementations
+### AdaBelief
 ```
-pip install adabelief-pytorch
+!pip install adabelief-pytorch
+
+from adabelief_pytorch import AdaBelief
+optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999))
 ```
+
+### Adabelief with Ranger optimizer
 ```
-pip install adabelief-tf
+!pip install ranger-adabelief
+
+from ranger_adabelief import RangerAdaBelief
+optimizer = RangerAdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999))
 ```
+
+## Use Adabelief in Tensorflow
 ```
-pip install ranger-adabelief
+!pip install adabelief-tf
+
+from adabelief_tf impoty AdaBeliefOptimizer
+optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
