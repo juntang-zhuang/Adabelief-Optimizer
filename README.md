@@ -29,3 +29,6 @@ optimizer = RangerAdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0
 from adabelief_tf impoty AdaBeliefOptimizer
 optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
+
+# Re-produce results in the paper
+See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
