@@ -43,3 +43,5 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 
 ### Results on Toy Example
 ![](imgs/Beale2.gif)
+
+# Please cite our paper if your find it useful
