@@ -61,9 +61,10 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 
 #### Details to reproduce results
 * Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. 
-
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
-
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Please contact me if you want to collaborate and improve it.
+
+#### Discussion on algorithms
+
 
 ## Citation
