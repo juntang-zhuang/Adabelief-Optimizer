@@ -43,4 +43,4 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 
 ### Results on Toy Example
 
-![](imgs/Beal2.mp4)
+![]()(imgs/Beal2.mp4)
