@@ -9,7 +9,7 @@
 - [Citation](#citation)
 
 ## External Links
-Project page: https://juntang-zhuang.github.io/adabelief/ <br>
+Project page (with brief explanation on the Algorithm): https://juntang-zhuang.github.io/adabelief/ <br>
 arXiv: <br>
 reddit: <br>
 twitter: <br>
