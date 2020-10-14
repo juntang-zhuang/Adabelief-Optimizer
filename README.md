@@ -36,4 +36,4 @@ optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 ### Results on Image Recongnition 
 
-![](https://github.com/juntang-zhuang/Adabelief-Optimizer/imgs/image_recog.png)
+![](imgs/image_recog.png)
