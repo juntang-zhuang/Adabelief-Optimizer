@@ -65,7 +65,7 @@ See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```
 #### Installation
 Please instal the latest version from pip, old versions might suffer from bugs. Source code for up-to-date package is available in folder ```pypi_packages```. 
 #### Discussion on algorithms
-##### Weight Decay: 
+##### 1. Weight Decay: 
 - Decoupling (argument ```weight_decouple (default:False)``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
 
@@ -78,13 +78,13 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 - What is the acutal weight-decay we are using? <br>
    This is seldom discussed in the literature, but personally I think it's very important. When we set ```weight_decay=1e-4``` for SGD, the weight is scaled by ```1 - lr x weight_decay```. Two points need to be emphasized: (1) ```lr``` in SGD is typically larger than Adam (0.1 vs 0.001), so the weight decay in Adam needs to be set as a larger number to compensate. (2) ```lr``` decays, this means typically we use a larger weight decay in early phases, and use a small weight decay in late phases.
 
-#### Epsilon:
+#### 2. Epsilon:
 AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training and LSTM, it's set as ```1e-12```. We recommend try different ```epsilon``` values in practice, and sweep through a large region, e.g. ```1e-8, 1e-10, 1e-12, 1e-14, 1e-16, 1e-18```. Typically a smaller ```epsilon``` makes it more adaptive.
 
-#### Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
+#### 3. Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
 Whether to turn on the rectification as in RAdam.
 
-#### Details to reproduce results
+#### 4. Details to reproduce results
 * Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
 
 |   Task   | beta1 | beta2 | epsilon | weight_decay | weight_decouple | fixed_decay | rectify | amsgrad |
@@ -94,6 +94,9 @@ Whether to turn on the rectification as in RAdam.
 | GAN      | 0.5   | 0.999 | 1e-12   | 0            | False           | False       | False   | False   |
 
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
-* The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Please contact me if you want to collaborate and improve it.
+* The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Currently I don't have plans to improve it since I seldom use Tensorflow, please contact me if you want to collaborate and improve it.
+
+#### 5. Contact
+Please contact me at ```j.zhuang@yale.edu``` if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, or some discussion on the theory part.
 
 ## Citation
