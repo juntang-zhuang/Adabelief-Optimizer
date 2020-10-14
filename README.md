@@ -64,6 +64,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Please contact me if you want to collaborate and improve it.
 #### Discussion on algorithms
 * __Weight Decay__: 
+
 ** Decoupling:
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is 
 
