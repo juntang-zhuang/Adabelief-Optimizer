@@ -4,8 +4,8 @@
 ## Table of Contents
 - [External Links](#external-links)
 - [Installation and usage](#Installation-and-usage)
-- [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Discussions (IMPORTANT, please read before using)](#Discussions)
+- [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
 ## External Links
