@@ -73,7 +73,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
    (1) If ```weight_decouple == False```, then this argument does not affect optimization. <br>
    (2) If ```weight_decouple == True```: <br>
         <ul>  If ```fixed_decay == False```, the weight is multiplied by ``` 1 -lr x weight_decay``` </ul> 
-        <ul>  If ```fixed_decay == True```, the weight is multiplied by ```1 - weight_decay``` </ul>
+        <ul>  If ```fixed_decay == True```, the weight is multiplied by ```1 - weight_decay```. This is implemented as an option but not used to produce results in the paper. </ul>
 
 - What is the acutal weight-decay we are using? <br>
    This is seldom discussed in the literature, but personally I think it's very important. When we set ```weight_decay=1e-4``` for SGD, the weight is scaled by ```1 - lr x weight_decay```. Two points need to be emphasized: (1) ```lr``` in SGD is typically larger than Adam (0.1 vs 0.001), so the weight decay in Adam needs to be set as a larger number to compensate. (2) ```lr``` decays, this means typically we use a larger weight decay in early phases, and use a small weight decay in late phases.
@@ -82,7 +82,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training and LSTM, it's set as ```1e-12```. We recommend try different ```epsilon``` values in practice, and sweep through a large region, e.g. ```1e-8, 1e-10, 1e-12, 1e-14, 1e-16, 1e-18```. Typically a smaller ```epsilon``` makes it more adaptive.
 
 #### 3. Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
-Whether to turn on the rectification as in RAdam. The recitification basically uses SGD in early phases for warmup, then switch to Adam.
+Whether to turn on the rectification as in RAdam. The recitification basically uses SGD in early phases for warmup, then switch to Adam. Rectification is implemented as an option, but is never used to produce results in the paper.
 
 #### 4. Details to reproduce results
 * Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
