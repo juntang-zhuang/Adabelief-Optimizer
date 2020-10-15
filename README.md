@@ -84,7 +84,10 @@ AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in t
 #### 3. Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
 Whether to turn on the rectification as in RAdam. The recitification basically uses SGD in early phases for warmup, then switch to Adam. Rectification is implemented as an option, but is never used to produce results in the paper.
 
-#### 4. Details to reproduce results
+### 4. AMSgrad (argument ```amsgrad (default: False)``` in ```AdaBelief```):
+Whether to take the max (over history) of denominator, same as AMSGrad. It's set as False for all experiments.
+
+#### 5. Details to reproduce results
 * Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
 
 |   Task   | beta1 | beta2 | epsilon | weight_decay | weight_decouple | fixed_decay | rectify | amsgrad |
@@ -96,7 +99,7 @@ Whether to turn on the rectification as in RAdam. The recitification basically u
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Currently I don't have plans to improve it since I seldom use Tensorflow, please contact me if you want to collaborate and improve it.
 
-#### 5. Contact
+#### 6. Contact
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. ANy thoughts are welcome!
 
 ## Citation
