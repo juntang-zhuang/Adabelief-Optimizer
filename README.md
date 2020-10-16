@@ -48,17 +48,17 @@ refer to jupyter notebook for visualization.
 
 ### Results on Image Recongnition 
 <p align="center">
-<img src="./imgs/image_recog.png" width="70%"/> 
+<img src="./imgs/image_recog.png" width="80%"/> 
 </p>
 
 ### Results on GAN training
 <p align="center">
-<img src="./imgs/GAN.png" width="70%"/>
+<img src="./imgs/GAN.png" width="80%"/>
 </p>
 
 ### Results on Toy Example
 <p align="center">
-<img src="./imgs/Beale2.gif" width="70%"/>
+<img src="./imgs/Beale2.gif" width="80%"/>
 </p>
 
 ## Discussions
