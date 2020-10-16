@@ -5,7 +5,7 @@
 - [External Links](#external-links)
 - [Installation and usage](#Installation-and-usage)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
-- [Discussions (IMPORTANT, please read before using)](#Discussions)
+- [Discussions (VERY IMPORTANT, please read before using)](#Discussions) Please read the discussion, important info on hyper-param there.
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
