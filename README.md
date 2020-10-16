@@ -9,7 +9,7 @@
 - [Citation](#citation)
 
 ## External Links
-[Project page (with brief explanation on the Algorithm)](https://juntang-zhuang.github.io/adabelief/) [arXiv](https://arxiv.org/abs/2010.07468) [Reddit] https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer [Twitter](https://twitter.com/JuntangZhuang/status/1316934184607354891)
+<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>  [arXiv](https://arxiv.org/abs/2010.07468) [Reddit] https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer [Twitter](https://twitter.com/JuntangZhuang/status/1316934184607354891)
 
 ## Installation and usage
 
