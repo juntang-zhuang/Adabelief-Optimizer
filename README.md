@@ -101,3 +101,11 @@ Whether to take the max (over history) of denominator, same as AMSGrad. It's set
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. ANy thoughts are welcome!
 
 ## Citation
+```
+@article{zhuang2020adabelief,
+  title={AdaBelief Optimizer: Adapting Stepsizes by the Belief in Observed Gradients},
+  author={Zhuang, Juntang and Tang, Tommy and Tatikonda, Sekhar and and Dvornek, Nicha and Ding, Yifan and Papademetris, Xenophon and Duncan, James},
+  journal={Conference on Neural Information Processing Systems},
+  year={2020}
+}
+```
