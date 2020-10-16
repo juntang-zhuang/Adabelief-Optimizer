@@ -42,8 +42,8 @@ optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12)
 
 ## A quick look at the algorithm
 <h2>Algorithm</h2>
-        <hr>
-        <img src="imgs/adabelief_algo.png" width="80%">
+        <hr> <center>
+        <img src="imgs/adabelief_algo.png" width="80%"> </center>
         <div>
             Adam and AdaBelief are summarized in Algo.1 and Algo.2, where all operations are 
             element-wise, with differences marked in blue. Note that no extra parameters are introduced in AdaBelief. For simplicity,
