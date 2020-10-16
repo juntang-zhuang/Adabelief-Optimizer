@@ -15,6 +15,8 @@
 ## Installation and usage
 
 ### 1. PyTorch implementations
+（ Results in the paper are all generated using the PyTorch implementation in ```adabelief-pytorch``` package, which is the __ONLY__ package that I have extensively tested for now.) <br>
+
 #### AdaBelief
 ```
 pip install adabelief-pytorch==0.0.5
