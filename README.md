@@ -48,7 +48,7 @@ optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12)
             Adam and AdaBelief are summarized in Algo.1 and Algo.2, where all operations are 
             element-wise, with differences marked in blue. Note that no extra parameters are introduced in AdaBelief. For simplicity,
              we omit the bias correction step. Specifically, in Adam, the update 
-             direction is \\[ m_t/\sqrt{v_t} \\], where \\[v_t\\] is the EMA of \\[g_t^2\\]; in AdaBelief, the update direction is \\[m_t/\sqrt{s_t}\\],
+             direction is ```math m_t/\sqrt{v_t} ```, where \\[v_t\\] is the EMA of \\[g_t^2\\]; in AdaBelief, the update direction is \\[m_t/\sqrt{s_t}\\],
               where \\[s_t\\] is the EMA (Exponential Moving Average) of \\[ (g_t - m_t)^2 \\]. Intuitively, viewing \\[ m_t \\] as the prediction of \\[ g_t \\], AdaBelief takes a 
               large step when observation \\[ g_t \\] is close to prediction \\[m_t\\], and a small step when the observation greatly deviates
                from the prediction.
