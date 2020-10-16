@@ -4,6 +4,7 @@
 ## Table of Contents
 - [External Links](#external-links)
 - [Installation and usage](#Installation-and-usage)
+- [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
 - [Discussions (IMPORTANT, please read before using)](#Discussions)
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
@@ -39,6 +40,20 @@ from adabelief_tf impoty AdaBeliefOptimizer
 optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
 
+## A quick look at the algorithm
+<h2>Algorithm</h2>
+        <hr>
+        <img src="img/adabelief_algo.png" width="100%">
+        <div>
+            Adam and AdaBelief are summarized in Algo.1 and Algo.2, where all operations are 
+            element-wise, with differences marked in blue. Note that no extra parameters are introduced in AdaBelief. For simplicity,
+             we omit the bias correction step. Specifically, in Adam, the update 
+             direction is \( m_t/\sqrt{v_t} \), where \(v_t\) is the EMA of \(g_t^2\); in AdaBelief, the update direction is \(m_t/\sqrt{s_t}\),
+              where \(s_t\) is the EMA (Exponential Moving Average) of \( (g_t - m_t)^2 \). Intuitively, viewing \( m_t \) as the prediction of \( g_t \), AdaBelief takes a 
+              large step when observation \( g_t \) is close to prediction m_t, and a small step when the observation greatly deviates
+               from the prediction.
+        </div>
+        
 ## Reproduce results in the paper 
 #### (Comparison with 8 other optimizers: SGD, Adam, AdaBound, RAdam, AdamW, Yogi, MSVAG, Fromage)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```. See  ```readme.txt``` in each subfolder for visualization, or
