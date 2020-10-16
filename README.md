@@ -5,7 +5,7 @@
 - [External Links](#external-links)
 - [Installation and usage](#Installation-and-usage)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
-- [Discussions (VERY IMPORTANT, please read before using)](#Discussions) Please read the discussion, important info on hyper-param there.
+- [Discussions](#Discussions) (Important) Please read the discussion, important info on hyper-params there.
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
@@ -122,7 +122,12 @@ Whether to take the max (over history) of denominator, same as AMSGrad. It's set
 ##### 6. Learning rate schedule
 The experiments on Cifar is the same as demo in AdaBound, with the only difference is the optimizer. The ImageNet experiment uses a different learning rate schedule, typically is decayed by 1/10 at epoch 30, 60, and ends at 90. For some reasons I have not extensively experimented, AdaBelief performs good when decayed at epoch 70, 80 and ends at 90, using the default lr schedule produces a slightly worse result. If you have any ideas on this please open an issue here or email me.
 
-##### 7. Contact
+##### 7. Some experience with RNN
+I got some feedbacks on RNN on reddit discussion, here are a few tips:
+* The epsilon is suggested to set as a smaller value for RNN (e.g. 1e-12, 1e-14, 1e-16) though the default is 1e-8. Please try different epsilon values, it varies from task to task.
+* Use gradient cliping carefully. If the gradient is too large, clipping to the SAME value will cause serious problem, because the demonitor is (gt-mt), observing the same gradient throughout training will generate a denominator really close to 0, this will cause explosion.
+
+##### 8. Contact
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. Any thoughts are welcome!
 
 ## Citation
