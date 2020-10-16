@@ -11,6 +11,7 @@
 ## External Links
 Project page (with brief explanation on the Algorithm): https://juntang-zhuang.github.io/adabelief/ <br>
 arXiv: https://arxiv.org/abs/2010.07468 <br>
+Reddit: https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer <br>
 
 ## Installation and usage
 
