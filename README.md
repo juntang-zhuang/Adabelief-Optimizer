@@ -10,9 +10,7 @@
 
 ## External Links
 Project page (with brief explanation on the Algorithm): https://juntang-zhuang.github.io/adabelief/ <br>
-arXiv: <br>
-reddit: <br>
-twitter: <br>
+arXiv: https://arxiv.org/abs/2010.07468 <br>
 
 ## Installation and usage
 
