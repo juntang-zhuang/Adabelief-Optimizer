@@ -125,7 +125,7 @@ The experiments on Cifar is the same as demo in AdaBound, with the only differen
 ##### 7. Some experience with RNN
 I got some feedbacks on RNN on reddit discussion, here are a few tips:
 * The epsilon is suggested to set as a smaller value for RNN (e.g. 1e-12, 1e-14, 1e-16) though the default is 1e-8. Please try different epsilon values, it varies from task to task.
-* Use gradient cliping carefully. If the gradient is too large, clipping to the SAME value will cause serious problem, because the demonitor is (gt-mt), observing the same gradient throughout training will generate a denominator really close to 0, this will cause explosion.
+* Use gradient cliping carefully. If the gradient is too large, clipping to the SAME value will cause serious problem, because the demonitor is roughly |gt-mt|, observing the same gradient throughout training will generate a denominator really close to 0, this will cause explosion.
 
 ##### 8. Contact
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. Any thoughts are welcome!
