@@ -9,10 +9,7 @@
 - [Citation](#citation)
 
 ## External Links
-<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>  <br>
-<a href="https://arxiv.org/abs/2010.07468"> arXiv </a><br> 
-<a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a><br> 
-<a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
+<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
 
 ## Installation and usage
 
