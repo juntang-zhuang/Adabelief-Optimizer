@@ -56,6 +56,11 @@ refer to jupyter notebook for visualization.
 <img src="./imgs/GAN.png" width="80%"/>
 </p>
 
+### Results on LSTM
+<p align="center">
+<img src="./imgs/lstm.png" width="80%"/>
+</p>
+
 ### Results on Toy Example
 <p align="center">
 <img src="./imgs/Beale2.gif" width="80%"/>
