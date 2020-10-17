@@ -10,7 +10,7 @@
 - [Citation](#citation)
 
 ## To do
-* Someone (under the wechat group ) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code exaple from PyTorch docs without adding more tricks). We will update results on new GANs (e.g. SN-GAN) and release code later. 
+* Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not performed cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. 
 * Upload code for LSTM experiments.
 
 ## External Links
