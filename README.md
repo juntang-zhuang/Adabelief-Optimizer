@@ -9,8 +9,9 @@
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
-## Notes
-Someone points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code exaple from PyTorch docs without adding more tricks). We will update results on new GANs (e.g. SN-GAN) and release code later. 
+## To do
+* Someone points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code exaple from PyTorch docs without adding more tricks). We will update results on new GANs (e.g. SN-GAN) and release code later. 
+* Upload code for LSTM experiments.
 
 ## External Links
 <a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
