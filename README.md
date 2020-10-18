@@ -11,7 +11,7 @@
 
 ## To do
 * <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
-Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.87 FID (lower is beeter) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
+* Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.87 FID (lower is beeter) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
 * Upload code for LSTM experiments.
 
 ## External Links
