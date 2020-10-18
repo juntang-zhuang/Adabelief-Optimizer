@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 """AdaBelief for TensorFlow.
-Modified from tensorflow/tensorflow/python/training/adam.py
+Modified from tensorflow/tensorflow/python/keras/optimizer_v2/adam.py
 """
 
 from __future__ import absolute_import
