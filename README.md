@@ -138,7 +138,7 @@ I got some feedbacks on RNN on reddit discussion, here are a few tips:
 * I might confuse "gradient threshold" with "gradient clip" in previous readme, clarify below: <br>
   (1) By "gradient threshold" I refer to element-wise operation, which only takes values between a certain region [a,b]. Values outside this region will be set as a and b respectively.<br>
   (2) By "gradient clip" I refer to the operation on a vector or tensor. Suppose X is a tensor, if ||X|| > thres, then X <- X/||X|| * thres. Take X as a vector, "gradient clip" shrinks the amplitude but keeps the direction.<br>
-  (3) "Gradient threshold" is incompatible with AdaBelief, because if gt is thresholded for a long time, then  |gt-mt|~=0, and the division will explode; however, "gradient clip" is fine for Adabelief, yet the clip range still needs tuning.<br>
+  (3) "Gradient threshold" is incompatible with AdaBelief, because if gt is thresholded for a long time, then  |gt-mt|~=0, and the division will explode; however, "gradient clip" is fine for Adabelief, yet the clip range still needs tuning (perhaps AdaBelief needs a larger range than Adam).<br>
 
 ##### 8. Contact
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. Any thoughts are welcome!
