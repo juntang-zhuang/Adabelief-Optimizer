@@ -125,7 +125,7 @@ Whether to take the max (over history) of denominator, same as AMSGrad. It's set
 | ImageNet | 0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
 | GAN      | 0.5   | 0.999 | 1e-12   | 0            | False           | False       | False   | False   |
 
-* We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
+* We also provide a modification of ```ranger``` optimizer in ```ranger-adabelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Currently I don't have plans to improve it since I seldom use Tensorflow, please contact me if you want to collaborate and improve it.
 
 ##### 6. Learning rate schedule
