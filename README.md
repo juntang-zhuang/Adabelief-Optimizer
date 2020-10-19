@@ -20,7 +20,7 @@
 
 ## Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.87 FID (lower is beeter) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
-* LSTM experiments uploaded to ```PyTorch-experiments/LSTM```
+* LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
 
 ## Installation and usage
 
