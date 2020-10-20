@@ -19,8 +19,11 @@ AdaBelief uses a different denominator from Adam, and is orthogonal to other tec
 This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
 
 * ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x**2``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, will modify it later.
+
 * If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
-* If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay. Note that many optimiers inheritenly uses decoupled weight decay, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
+
+* If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay in AdaBelief. Note that many optimizers uses decoupled weight decay without specifying it as an options, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
+
 * Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
 
 ## Update Plan
