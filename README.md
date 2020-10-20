@@ -3,22 +3,31 @@
 
 ## Table of Contents
 - [External Links](#external-links)
+- [Quick Guide](#quick-guide)
+- [Update Plan](#update-plan)
 - [Installation and usage](#Installation-and-usage)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
-- [Discussions](#Discussions) (Important) Please read the discussion, important info on hyper-params there.
+- [Detailed Discussions](#Discussions) (Important) Please read the discussion, important info on hyper-params there.
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
 ## External Links
 <a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
 
-## To do
+## Quick Guide
+AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al. * ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x**2``` will give similar results.
+* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
+* If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay.
+* Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
+
+## Update Plan
+### To do
 * <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
 * <del> Upload code for LSTM experiments. </del>
 * Merge Tensorflow version
 * Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.
 
-## Done
+### Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.87 FID (lower is beeter) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
 
