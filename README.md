@@ -34,7 +34,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 * Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.
 
 ### Done
-* Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.87 FID (lower is beeter) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
+* Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.35 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
 
 ## Installation and usage
