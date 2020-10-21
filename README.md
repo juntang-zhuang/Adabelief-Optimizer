@@ -48,7 +48,7 @@ pip install adabelief-pytorch==0.0.5
 ```
 ```
 from adabelief_pytorch import AdaBelief
-optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999), weight_decouple = False, rectify = False)
+optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-16, betas=(0.9,0.999), weight_decouple = True, rectify = False)
 ```
 #### Adabelief with Ranger optimizer
 ```
