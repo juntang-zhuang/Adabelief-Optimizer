@@ -20,7 +20,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 
 * ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x*x``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, will modify it later to 1e-12 or 1e-16 later.
 
-* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
+* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), such as on image recognition, you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, such as GAN, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
 
 * If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay in AdaBelief. Note that many optimizers uses decoupled weight decay without specifying it as an options, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
 
