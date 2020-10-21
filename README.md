@@ -26,7 +26,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 
 * Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
 
-* Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
+* Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and varies with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
 
 |   Task   |  lr | beta1 | beta2 | epsilon | weight_decay | weight_decouple | rectify     | fixed_decay | amsgrad |
 |:--------:|-----|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
@@ -37,6 +37,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 | Transformer| 1.5e-3| 0.9 | 0.98  | 1e-12   | 1e-4         | True            | True      | False   | False   |
 | LSTM-1layer| 1e-3| 0.9 | 0.999 | 1e-16   | 1.2e-6        | False           | False      | False   | False   |
 | LSTm 2,3 layer|1e-2| 0.9| 0.999 | 1e-12 |  1.2e-6.       | False           | False      | False   | False   |
+
 ## Update Plan
 ### To do
 * <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
@@ -151,7 +152,7 @@ Whether to turn on the rectification as in RAdam. The recitification basically u
 Whether to take the max (over history) of denominator, same as AMSGrad. It's set as False for all experiments.
 
 ##### 5. Details to reproduce results
-
+* Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
 * We also provide a modification of ```ranger``` optimizer in ```ranger-adabelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Currently I don't have plans to improve it since I seldom use Tensorflow, please contact me if you want to collaborate and improve it.
 
