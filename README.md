@@ -119,6 +119,11 @@ refer to jupyter notebook for visualization.
 <img src="./imgs/lstm.png" width="80%"/>
 </p>
 
+### Results on Transformer
+<p align="center">
+<img src="./imgs/transformer.png" width="60%"/>
+</p>
+
 ### Results on Toy Example
 <p align="center">
 <img src="./imgs/Beale2.gif" width="80%"/>
