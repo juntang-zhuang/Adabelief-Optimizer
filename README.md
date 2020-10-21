@@ -95,10 +95,12 @@ refer to jupyter notebook for visualization.
 <p align="center">
 <img src="./imgs/GAN.png" width="80%"/>
 </p>
+
 #### Results on Spectral Normalization GAN with a ResNet generator
 <p align="center">
 <img src="./imgs/sn-gan.png" width="80%"/>
 </p>
+
 ### Results on LSTM
 <p align="center">
 <img src="./imgs/lstm.png" width="80%"/>
