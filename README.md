@@ -32,7 +32,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 |:--------:|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
 | Cifar    | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False       | False   | False   |
 | ImageNet | 0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
-| GAN  (small)| 0.5| 0.999 | 1e-12   | 0            | True=False ( decay=0)| False       | False   | False   |
+| GAN  (small)| 0.5| 0.999 | 1e-12   | 0            | True=False (decay=0)| False       | False   | False   |
 | SN-GAN (large)  | 0.5   | 0.999 | 1e-16   | 0     | True=False (decay=0)| True        | False   | False   |
 | Transformer| 0.9 | 0.98  | 1e-12   | 1e-4         | True            | True        | False   | False   |
 
