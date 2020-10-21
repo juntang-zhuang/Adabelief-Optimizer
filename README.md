@@ -168,7 +168,7 @@ Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would 
 ```
 @article{zhuang2020adabelief,
   title={AdaBelief Optimizer: Adapting Stepsizes by the Belief in Observed Gradients},
-  author={Zhuang, Juntang and Tang, Tommy and Ding, Yifan and Tatikonda, Sekhar and and Dvornek, Nicha and Papademetris, Xenophon and Duncan, James},
+  author={Zhuang, Juntang and Tang, Tommy and Ding, Yifan and Tatikonda, Sekhar and Dvornek, Nicha and Papademetris, Xenophon and Duncan, James},
   journal={Conference on Neural Information Processing Systems},
   year={2020}
 }
