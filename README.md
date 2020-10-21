@@ -91,7 +91,7 @@ refer to jupyter notebook for visualization.
 </p>
 
 ### Results on GAN training
-##### Results on a small GAN with vanilla CNN generator
+#### Results on a small GAN with vanilla CNN generator
 <p align="center">
 <img src="./imgs/GAN.png" width="80%"/>
 </p>
