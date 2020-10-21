@@ -3,11 +3,11 @@
 
 ## Table of Contents
 - [External Links](#external-links)
-- [Quick Guide](#quick-guide)
+- [Quick Guide](#quick-guide) Important infomation on hyper-params.
 - [Update Plan](#update-plan)
 - [Installation and usage](#Installation-and-usage)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
-- [Detailed Discussions](#Discussions) (Important) Please read the discussion, important info on hyper-params there.
+- [Detailed Discussions](#Discussions) 
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
