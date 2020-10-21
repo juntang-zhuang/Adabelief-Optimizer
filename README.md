@@ -26,6 +26,16 @@ This implies when you use some techniques with Adam, to get a good result with A
 
 * Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
 
+* Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
+
+|   Task   | beta1 | beta2 | epsilon | weight_decay | weight_decouple | rectify     | fixed_decay | amsgrad |
+|:--------:|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
+| Cifar    | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False       | False   | False   |
+| ImageNet | 0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
+| GAN  (small)| 0.5| 0.999 | 1e-12   | 0            | False           | False       | False   | False   |
+| SN-GAN   | 0.5   | 0.999 | 1e-16   | 0            | False           | True        | False   | False   |
+| Transformer| 0.9 | 0.98  | 1e-12   | 1e-4         | True            | True        | False   | False.  |
+
 ## Update Plan
 ### To do
 * <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
