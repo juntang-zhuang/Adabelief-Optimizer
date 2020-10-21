@@ -140,7 +140,7 @@ class AdaBelief(Optimizer):
                         p.data.mul_(1.0 - group['weight_decay'])
                 else:
                     if group['weight_decay'] != 0:
-                        grad.add_(group['weight_decay'], p.data)
+                        grad.add_(p.data, alpha=group['weight_decay'])
 
                 # Update first and second moment running average
                 exp_avg.mul_(beta1).add_(grad, alpha=1 - beta1)
