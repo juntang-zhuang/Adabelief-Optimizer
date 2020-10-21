@@ -34,7 +34,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 | ImageNet | 0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
 | GAN  (small)| 0.5| 0.999 | 1e-12   | 0            | False           | False       | False   | False   |
 | SN-GAN   | 0.5   | 0.999 | 1e-16   | 0            | False           | True        | False   | False   |
-| Transformer| 0.9 | 0.98  | 1e-12   | 1e-4         | True            | True        | False   | False.  |
+| Transformer| 0.9 | 0.98  | 1e-12   | 1e-4         | True            | True        | False   | False   |
 
 ## Update Plan
 ### To do
