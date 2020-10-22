@@ -122,38 +122,35 @@ class AdaBeliefOptimizer(optimizer_v2.OptimizerV2):
         coefficients = ((apply_state or {}).get((var_device, var_dtype))
                         or self._fallback_apply_state(var_device, var_dtype))
 
+        # m_t = beta1 * m + (1 - beta1) * g_t
         m = self.get_slot(var, 'm')
+        m_scaled_g_values = grad * coefficients['one_minus_beta_1_t']
+        m_t = state_ops.assign(m, m * coefficients['beta_1_t'] + m_scaled_g_values,
+                                use_locking=self._use_locking)
+  
+        # s_t = beta2 * s + (1 - beta2) * (g_t - m_t) * (g_t - m_t)
         s = self.get_slot(var, 's')
+        s_scaled_g_values = (grad - m_t) * (grad - m_t) * coefficients['one_minus_beta_2_t']
+        s_t = state_ops.assign(s, s * coefficients['beta_2_t'] + s_scaled_g_values + coefficients['epsilon'],
+                                use_locking=self._use_locking)
 
         if not self.amsgrad:
-            return  training_ops.resource_apply_adam(
-                    var.handle,
-                    m.handle,
-                    s.handle,
-                    coefficients['beta_1_power'],
-                    coefficients['beta_2_power'],
-                    coefficients['lr_t'],
-                    coefficients['beta_1_t'],
-                    coefficients['beta_2_t'],
-                    coefficients['epsilon'],
-                    grad,
-                    use_locking=self._use_locking)
+            s_sqrt = math_ops.sqrt(s_t)
+            var_update = state_ops.assign_sub(
+                var, coefficients['lr'] * m_t / (s_sqrt + coefficients['epsilon']),
+                use_locking=self._use_locking)
+            return control_flow_ops.group(*[var_update, m_t, s_t])
         else:
-            shat = self.get_slot(var, 'shat')
-            return  training_ops.resource_apply_adam_with_amsgrad(
-                    var.handle,
-                    m.handle,
-                    s.handle,
-                    shat.handle,
-                    coefficients['beta_1_power'],
-                    coefficients['beta_2_power'],
-                    coefficients['lr_t'],
-                    coefficients['beta_1_t'],
-                    coefficients['beta_2_t'],
-                    coefficients['epsilon'],
-                    grad,
-                    use_locking=self._use_locking)
-
+            s_hat = self.get_slot(var, 'shat')
+            s_hat_t = math_ops.maximum(s_hat, s_t)
+            with ops.control_dependencies([s_hat_t]):
+                s_hat_t = state_ops.assign(s_hat, s_hat_t, use_locking=self._use_locking)
+            s_hat_sqrt = math_ops.sqrt(s_hat_t)
+            var_update = state_ops.assign_sub(
+                var,
+                coefficients['lr'] * m_t / (s_hat_sqrt + coefficients['epsilon']),
+                use_locking=self._use_locking)
+            return control_flow_ops.group(*[var_update, m_t, s_t, s_hat_t])
 
     def _resource_apply_sparse(self, grad, var, indices, apply_state=None):
         var_device, var_dtype = var.device, var.dtype.base_dtype
@@ -174,7 +171,7 @@ class AdaBeliefOptimizer(optimizer_v2.OptimizerV2):
         s_t = state_ops.assign(s, s * coefficients['beta_2_t'],
                                 use_locking=self._use_locking)
         with ops.control_dependencies([s_t]):
-            s_t = self._resource_scatter_add(s, indices, s_scaled_g_values)
+            s_t = self._resource_scatter_add(s, indices, s_scaled_g_values + coefficients['epsilon'])
 
         if not self.amsgrad:
             s_sqrt = math_ops.sqrt(s_t)
