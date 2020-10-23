@@ -167,7 +167,8 @@ class AdaBeliefOptimizer(optimizer_v2.OptimizerV2):
 
         # s_t = beta2 * s + (1 - beta2) * (g_t - m_t) * (g_t - m_t)
         s = self.get_slot(var, 's')
-        s_scaled_g_values = (grad - m_t) * (grad - m_t) * coefficients['one_minus_beta_2_t']
+        m_t_indices = tf.gather(m_t, indices)
+        s_scaled_g_values = (grad - m_t_indices) * (grad - m_t_indices) * coefficients['one_minus_beta_2_t']
         s_t = state_ops.assign(s, s * coefficients['beta_2_t'],
                                 use_locking=self._use_locking)
         with ops.control_dependencies([s_t]):
