@@ -42,7 +42,9 @@ This implies when you use some techniques with Adam, to get a good result with A
 ### To do
 * <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
 * <del> Upload code for LSTM experiments. </del>
-* Merge Tensorflow version
+* <del> (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
+The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
+* Merge Tensorflow improvements
 * Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.
 * Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.
 * Fix the bug that AdaBelief works fine with PyTorch 1.1 on transformer, but works much worse with PyTorch 1.4 or higher.
@@ -50,9 +52,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 ### Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
-* (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
-The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief <br>
-Identify the problem to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```.
+* Identify the problem to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```.
 
 ## Installation and usage
 
