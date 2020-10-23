@@ -1,12 +1,6 @@
 <h1 align="center">AdaBelief Optimizer</h1>
 <h3 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h3>
 
-## Notice on a potential bug (10/23/2020)
-I encountered a weird scenario where a Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. I'm still investigating the reason, perhaps it's a bug due to PyTorch version. Will fix this in the next update.
-
-The code is public at: https://github.com/juntang-zhuang/transformer-adabelief <br>
-Please leave a message if you have any idea on that, any suggestions will be really helpful.<br>
-
 ## Table of Contents
 - [External Links](#external-links)
 - [Quick Guide](#quick-guide) Important infomation on hyper-params.
@@ -56,6 +50,9 @@ This implies when you use some techniques with Adam, to get a good result with A
 ### Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
+* (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
+The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief <br>
+Identify the problem to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```.
 
 ## Installation and usage
 
