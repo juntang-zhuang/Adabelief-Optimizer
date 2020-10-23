@@ -1,6 +1,9 @@
 <h1 align="center">AdaBelief Optimizer</h1>
 <h3 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h3>
 
+## Notice
+I encountered a weird scenario where a Transformer trains fine locally with PyTorch 1.1, but works much worse on a server with PyTorch 1.4. I'm still investigating the reason, perhaps it's a bug due to PyTorch version. Will fix this in the next update, estimated release in 2 to 3 days.
+
 ## Table of Contents
 - [External Links](#external-links)
 - [Quick Guide](#quick-guide) Important infomation on hyper-params.
