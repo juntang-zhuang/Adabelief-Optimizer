@@ -1,7 +1,7 @@
 <h1 align="center">AdaBelief Optimizer</h1>
 <h3 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h3>
 
-## Notice on a potential bug
+## Notice on a potential bug (10/23/2020)
 I encountered a weird scenario where a Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. I'm still investigating the reason, perhaps it's a bug due to PyTorch version. Will fix this in the next update, estimated release in 2 to 3 days.
 
 ## Table of Contents
