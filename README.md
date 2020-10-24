@@ -47,12 +47,11 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * Merge Tensorflow improvements
 * Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.
 * Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.
-* Fix the bug that AdaBelief works fine with PyTorch 1.1 on transformer, but works much worse with PyTorch 1.4 or higher.
 
 ### Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
-* Identify the problem to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```.
+* Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```.
 
 ## Installation and usage
 
