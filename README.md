@@ -47,6 +47,7 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * Merge Tensorflow improvements
 * Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.
 * Test AdaBelief on more examples, such as <del>Transformer</del>, Reinforcement Learning.
+* Correct the error in RangerAdaBelief https://github.com/juntang-zhuang/Adabelief-Optimizer/blob/7d163bd084a044d809b52e2c24563bb1b5f55c2e/pypi_packages/ranger_adabelief/ranger_adabelief/ranger_adabelief.py#L100 should be super(RangerAdabelief)
 
 ### Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
