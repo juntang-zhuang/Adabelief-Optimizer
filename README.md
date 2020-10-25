@@ -54,6 +54,11 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
 * Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```. <br> Code on Transformer to work with PyTorch 1.6 is at: https://github.com/juntang-zhuang/fairseq-adabelief <br>
   Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
+  
+## Link to code for extra experiments
+* SN-GAN https://github.com/juntang-zhuang/SNGAN-AdaBelief <br>
+* Transformer (PyTorch 1.1) https://github.com/juntang-zhuang/transformer-adabelief <br>
+* Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
 
 ## Installation and usage
 
