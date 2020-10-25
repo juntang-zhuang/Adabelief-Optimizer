@@ -14,6 +14,11 @@
 ## External Links
 <a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
 
+## Link to code for extra experiments
+* SN-GAN https://github.com/juntang-zhuang/SNGAN-AdaBelief <br>
+* Transformer (PyTorch 1.1) https://github.com/juntang-zhuang/transformer-adabelief <br>
+* Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
+
 ## Quick Guide
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
 This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
@@ -54,11 +59,7 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
 * Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```. <br> Code on Transformer to work with PyTorch 1.6 is at: https://github.com/juntang-zhuang/fairseq-adabelief <br>
   Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
-  
-## Link to code for extra experiments
-* SN-GAN https://github.com/juntang-zhuang/SNGAN-AdaBelief <br>
-* Transformer (PyTorch 1.1) https://github.com/juntang-zhuang/transformer-adabelief <br>
-* Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
+ 
 
 ## Installation and usage
 
