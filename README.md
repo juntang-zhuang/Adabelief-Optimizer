@@ -21,7 +21,7 @@
 * Reinforcement Learning (Toy) https://github.com/juntang-zhuang/rainbow-adabelief <br>
 
 ## Update (Crucial)
-In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of for general tasks such as GAN and NLP applications. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
+In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of for general tasks such as GAN and Transformer. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
 
 |   Version| epsilon | weight_decouple | rectify     | 
 |:--------:|---------|-----------------|-------------|
