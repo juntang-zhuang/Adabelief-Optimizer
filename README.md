@@ -157,7 +157,7 @@ refer to jupyter notebook for visualization.
 Please instal the latest version from pip, old versions might suffer from bugs. Source code for up-to-date package is available in folder ```pypi_packages```. 
 #### Discussion on algorithms
 ##### 1. Weight Decay: 
-- Decoupling (argument ```weight_decouple (default:False)``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
+- Decoupling (argument ```weight_decouple ``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
 
 - Fixed ratio (argument ```fixed_decay (default: False)``` appears in ```AdaBelief```): <br>
@@ -172,7 +172,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 ##### 2. Epsilon:
 AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training and LSTM, it's set as ```1e-12```. We recommend try different ```epsilon``` values in practice, and sweep through a large region, e.g. ```1e-8, 1e-10, 1e-12, 1e-14, 1e-16, 1e-18```. Typically a smaller ```epsilon``` makes it more adaptive.
 
-##### 3. Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
+##### 3. Rectify (argument ```rectify``` in ```AdaBelief```):
 Whether to turn on the rectification as in RAdam. The recitification basically uses SGD in early phases for warmup, then switch to Adam. Rectification is implemented as an option, but is never used to produce results in the paper.
 
 ##### 4. AMSgrad (argument ```amsgrad (default: False)``` in ```AdaBelief```):
