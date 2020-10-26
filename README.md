@@ -20,6 +20,14 @@
 * Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
 * Reinforcement Learning (Toy) https://github.com/juntang-zhuang/rainbow-adabelief <br>
 
+## Update (Crucial)
+In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of GAN and NLP applications. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
+
+|   Version| epsilon | weight_decouple | rectify     | 
+|:--------:|---------|-----------------|-------------|
+|   version=0.0.5 |   1e-8  |   False         |   False     |
+|   version>0.0.5|    1e-16 |    True         |    True     |
+ 
 ## Quick Guide
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
 This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
