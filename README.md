@@ -77,8 +77,9 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 （ Results in the paper are all generated using the PyTorch implementation in ```adabelief-pytorch``` package, which is the __ONLY__ package that I have extensively tested for now.) <br>
 
 #### AdaBelief
+Please install latest version (0.1.0), previous version (0.0.5) uses different default arguments.
 ```
-pip install adabelief-pytorch==0.0.5
+pip install adabelief-pytorch==0.1.0
 ```
 ```
 from adabelief_pytorch import AdaBelief
