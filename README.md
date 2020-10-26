@@ -25,8 +25,8 @@ In the next release of ```adabelief-pytorch```, we will modify the default of se
 
 |   Version| epsilon | weight_decouple | rectify     | 
 |:--------:|---------|-----------------|-------------|
-|   version=0.0.5 |   1e-8  |   False         |   False     |
-|   version>0.0.5|    1e-16 |    True         |    True     |
+|   adabelief-pytorch=0.0.5 |   1e-8  |   False         |   False     |
+|   adabelief-pytorch>0.0.5|    1e-16 |    True         |    True     |
  
 ## Quick Guide
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
