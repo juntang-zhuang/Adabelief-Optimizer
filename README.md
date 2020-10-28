@@ -61,7 +61,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
 * <del>Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
 * Merge Tensorflow improvements
-* Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.
+* <del>Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
 * Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)
 
 ### Done
