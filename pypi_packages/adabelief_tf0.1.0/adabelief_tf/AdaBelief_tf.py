@@ -259,7 +259,8 @@ class AdaBelief(tf.keras.optimizers.Optimizer):
         m_corr_t = m_t / (1.0 - beta_1_power)
 
         v = self.get_slot(var, "v")
-        v_scaled_g_values = (grad - m_t) * (grad - m_t) * (1 - beta_2_t)
+        m_t_indices = tf.gather(m_t, indices)
+        v_scaled_g_values = (grad - m_t_indices) * (grad - m_t_indices) * (1 - beta_2_t)
         v_t = v.assign(v * beta_2_t + epsilon_t, use_locking=self._use_locking)
         with tf.control_dependencies([v_t]):
             v_t = self._resource_scatter_add(v, indices, v_scaled_g_values)
