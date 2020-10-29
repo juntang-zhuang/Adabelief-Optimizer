@@ -3,19 +3,73 @@
 
 ## Table of Contents
 - [External Links](#external-links)
+- [Quick Guide](#quick-guide) Important infomation on hyper-params.
+- [Update Plan](#update-plan)
 - [Installation and usage](#Installation-and-usage)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
-- [Discussions](#Discussions) (Important) Please read the discussion, important info on hyper-params there.
+- [Detailed Discussions](#Discussions) 
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Citation](#citation)
 
-## To do
-* <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
-Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.87 FID (lower is beeter) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
-* Upload code for LSTM experiments.
-
 ## External Links
 <a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
+
+## Link to code for extra experiments with AdaBelief
+* SN-GAN https://github.com/juntang-zhuang/SNGAN-AdaBelief <br>
+* Transformer (PyTorch 1.1) https://github.com/juntang-zhuang/transformer-adabelief <br>
+* Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
+* Reinforcement Learning (Toy) https://github.com/juntang-zhuang/rainbow-adabelief <br>
+
+## Update for ```adabelief-pytorch==0.1.0``` (Crucial)
+In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of for general tasks such as GAN and Transformer. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
+
+|   Version| epsilon | weight_decouple | rectify     | 
+|:--------:|---------|-----------------|-------------|
+|   adabelief-pytorch=0.0.5 |   1e-8  |   False         |   False     |
+|   latest version 0.1.0>0.0.5|    1e-16 |    True         |    True     |
+ 
+## Quick Guide
+AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
+This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
+
+* ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x*x``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, will modify it later to 1e-12 or 1e-16 later.
+
+* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), such as on image recognition, you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, such as GAN, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
+
+* If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay in AdaBelief. Note that many optimizers uses decoupled weight decay without specifying it as an options, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
+
+* Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
+
+* Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and vary with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
+
+|   Task   |  lr | beta1 | beta2 | epsilon | weight_decay | weight_decouple | rectify     | fixed_decay | amsgrad |
+|:--------:|-----|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
+| Cifar    | 1e-3 | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False      | False   | False   |
+| ImageNet | 1e-3 |0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
+| LSTM-1layer| 1e-3| 0.9 | 0.999 | 1e-16   | 1.2e-6        | False           | False      | False   | False   |
+| LSTm 2,3 layer|1e-2| 0.9| 0.999 | 1e-12 |  1.2e-6.       | False           | False      | False   | False   |
+| GAN  (small)| 2e-4 |0.5| 0.999 | 1e-12   | 0            | True=False (decay=0)| False   | False   | False   |
+| SN-GAN (large)|2e-4 | 0.5   | 0.999 | 1e-16   | 0     | True=False (decay=0)| True      | False   | False   |
+| Transformer| 5e-4| 0.9 | 0.999  | 1e-16   | 1e-4         | True            | True      | False   | False   |
+| Reinforce| 1e-4 | 0.9 | 0.999 | 1e-10|     0.0           | True=False (decay=0)| True   | False   | False   |
+
+## Update Plan
+### To do
+* <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
+* <del> Upload code for LSTM experiments. </del>
+* <del> (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
+The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
+* <del>Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
+* Merge Tensorflow improvements
+* <del>Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
+* Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)
+
+### Done
+* Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
+* LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
+* Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```. <br> Code on Transformer to work with PyTorch 1.6 is at: https://github.com/juntang-zhuang/fairseq-adabelief <br>
+  Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
+* Tested on a toy example of reinforcement learning. 
 
 ## Installation and usage
 
@@ -23,12 +77,13 @@ Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBe
 （ Results in the paper are all generated using the PyTorch implementation in ```adabelief-pytorch``` package, which is the __ONLY__ package that I have extensively tested for now.) <br>
 
 #### AdaBelief
+Please install latest version (0.1.0), previous version (0.0.5) uses different default arguments.
 ```
-pip install adabelief-pytorch==0.0.5
+pip install adabelief-pytorch==0.1.0
 ```
 ```
 from adabelief_pytorch import AdaBelief
-optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0.999))
+optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-16, betas=(0.9,0.999), weight_decouple = True, rectify = False)
 ```
 #### Adabelief with Ranger optimizer
 ```
@@ -49,7 +104,7 @@ optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12)
 
 <h2>A quick look at the algorithm</h2>
         <p align='center'>
-        <img src="imgs/adabelief_algo.png" width="80%"> </p>
+        <img src="imgs/adabelief-algo2.png" width="80%"> </p>
         <div>
             Adam and AdaBelief are summarized in Algo.1 and Algo.2, where all operations are 
             element-wise, with differences marked in blue. Note that no extra parameters are introduced in AdaBelief. For simplicity,
@@ -71,13 +126,24 @@ refer to jupyter notebook for visualization.
 </p>
 
 ### Results on GAN training
+#### Results on a small GAN with vanilla CNN generator
 <p align="center">
 <img src="./imgs/GAN.png" width="80%"/>
+</p>
+
+#### Results on Spectral Normalization GAN with a ResNet generator
+<p align="center">
+<img src="./imgs/sn-gan.png" width="80%"/>
 </p>
 
 ### Results on LSTM
 <p align="center">
 <img src="./imgs/lstm.png" width="80%"/>
+</p>
+
+### Results on Transformer
+<p align="center">
+<img src="./imgs/transformer.png" width="60%"/>
 </p>
 
 ### Results on Toy Example
@@ -91,7 +157,7 @@ refer to jupyter notebook for visualization.
 Please instal the latest version from pip, old versions might suffer from bugs. Source code for up-to-date package is available in folder ```pypi_packages```. 
 #### Discussion on algorithms
 ##### 1. Weight Decay: 
-- Decoupling (argument ```weight_decouple (default:False)``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
+- Decoupling (argument ```weight_decouple ``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
    Currently there are two ways to perform weight decay for adaptive optimizers, directly apply it to the gradient (Adam), or ```decouple``` weight decay from gradient descent (AdamW). This is passed to the optimizer by argument ```weight_decouple (default: False)```.
 
 - Fixed ratio (argument ```fixed_decay (default: False)``` appears in ```AdaBelief```): <br>
@@ -106,7 +172,7 @@ Please instal the latest version from pip, old versions might suffer from bugs. 
 ##### 2. Epsilon:
 AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training and LSTM, it's set as ```1e-12```. We recommend try different ```epsilon``` values in practice, and sweep through a large region, e.g. ```1e-8, 1e-10, 1e-12, 1e-14, 1e-16, 1e-18```. Typically a smaller ```epsilon``` makes it more adaptive.
 
-##### 3. Rectify (argument ```rectify (default: False)``` in ```AdaBelief```):
+##### 3. Rectify (argument ```rectify``` in ```AdaBelief```):
 Whether to turn on the rectification as in RAdam. The recitification basically uses SGD in early phases for warmup, then switch to Adam. Rectification is implemented as an option, but is never used to produce results in the paper.
 
 ##### 4. AMSgrad (argument ```amsgrad (default: False)``` in ```AdaBelief```):
@@ -114,14 +180,7 @@ Whether to take the max (over history) of denominator, same as AMSGrad. It's set
 
 ##### 5. Details to reproduce results
 * Results in the paper are generated using the PyTorch implementation in ```adabelief-pytorch``` package. This is the __ONLY__ package that I have extensively tested for now. <br>
-
-|   Task   | beta1 | beta2 | epsilon | weight_decay | weight_decouple | fixed_decay | rectify | amsgrad |
-|:--------:|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
-| Cifar    | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False       | False   | False   |
-| ImageNet | 0.9   | 0.999 | 1e-8    | 1e-2         | True            | False       | False   | False   |
-| GAN      | 0.5   | 0.999 | 1e-12   | 0            | False           | False       | False   | False   |
-
-* We also provide a modification of ```ranger``` optimizer in ```ranger-adavelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
+* We also provide a modification of ```ranger``` optimizer in ```ranger-adabelief``` which combines ```RAdam + LookAhead + Gradient Centralization + AdaBelief```, but this is not used in the paper and is not extensively tested. 
 * The ```adabelief-tf``` is a naive implementation in Tensorflow. It lacks many features such as ```decoupled weight decay```, and is not extensively tested. Currently I don't have plans to improve it since I seldom use Tensorflow, please contact me if you want to collaborate and improve it.
 
 ##### 6. Learning rate schedule
@@ -130,7 +189,10 @@ The experiments on Cifar is the same as demo in AdaBound, with the only differen
 ##### 7. Some experience with RNN
 I got some feedbacks on RNN on reddit discussion, here are a few tips:
 * The epsilon is suggested to set as a smaller value for RNN (e.g. 1e-12, 1e-14, 1e-16) though the default is 1e-8. Please try different epsilon values, it varies from task to task.
-* Use gradient cliping carefully. If the gradient is too large, clipping to the SAME value will cause serious problem, because the demonitor is roughly |gt-mt|, observing the same gradient throughout training will generate a denominator really close to 0, this will cause explosion.
+* I might confuse "gradient threshold" with "gradient clip" in previous readme, clarify below: <br>
+  (1) By "gradient threshold" I refer to element-wise operation, which only takes values between a certain region [a,b]. Values outside this region will be set as a and b respectively.<br>
+  (2) By "gradient clip" I refer to the operation on a vector or tensor. Suppose X is a tensor, if ||X|| > thres, then X <- X/||X|| * thres. Take X as a vector, "gradient clip" shrinks the amplitude but keeps the direction.<br>
+  (3) "Gradient threshold" is incompatible with AdaBelief, because if gt is thresholded for a long time, then  |gt-mt|~=0, and the division will explode; however, "gradient clip" is fine for Adabelief, yet the clip range still needs tuning (perhaps AdaBelief needs a larger range than Adam).<br>
 
 ##### 8. Contact
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. Any thoughts are welcome!
@@ -139,7 +201,7 @@ Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would 
 ```
 @article{zhuang2020adabelief,
   title={AdaBelief Optimizer: Adapting Stepsizes by the Belief in Observed Gradients},
-  author={Zhuang, Juntang and Tang, Tommy and Tatikonda, Sekhar and and Dvornek, Nicha and Ding, Yifan and Papademetris, Xenophon and Duncan, James},
+  author={Zhuang, Juntang and Tang, Tommy and Ding, Yifan and Tatikonda, Sekhar and Dvornek, Nicha and Papademetris, Xenophon and Duncan, James},
   journal={Conference on Neural Information Processing Systems},
   year={2020}
 }
