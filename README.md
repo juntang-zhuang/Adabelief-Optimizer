@@ -29,7 +29,7 @@ In the next release of ```adabelief-pytorch```, we will modify the default of se
 |   latest version 0.1.0>0.0.5|    1e-16 |    True         |    True     |
 
 ## Update for ```adabelief-tf==0.1.0``` (To be released soon)
-In the next release, we will modify ```adabelief-tf``` to have the same feature as ```adabelief-pytorch```, inlcuding decoupled weight decay and learning rate rectification. Furthremore, we will add support for TensorFlow>=2.0 and Keras. A nightly version is in ```pypi_packages/adabelief_tf0.1.0```, note that this version is not pushed to pypi yet.
+In the next release, we will modify ```adabelief-tf``` to have the same feature as ```adabelief-pytorch```, inlcuding decoupled weight decay and learning rate rectification. Furthermore, we will add support for TensorFlow>=2.0 and Keras. A nightly version is in ```pypi_packages/adabelief_tf0.1.0```, note that this version is not pushed to pypi yet.
  
 ## Quick Guide
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
