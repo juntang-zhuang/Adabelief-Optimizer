@@ -28,8 +28,8 @@ In the next release of ```adabelief-pytorch```, we will modify the default of se
 |   adabelief-pytorch=0.0.5 |   1e-8  |   False         |   False     |
 |   latest version 0.1.0>0.0.5|    1e-16 |    True         |    True     |
 
-## Update for ```adabelief-tf==0.1.0``` (To be released soon)
-In the next release, we will modify ```adabelief-tf``` to have the same feature as ```adabelief-pytorch```, inlcuding decoupled weight decay and learning rate rectification. Furthermore, we will add support for TensorFlow>=2.0 and Keras. A nightly version is in ```pypi_packages/adabelief_tf0.1.0```, note that this version is not pushed to pypi yet.
+## Update for ```adabelief-tf==0.1.0```
+In ```adabelief-tf==0.1.0```, we will modify ```adabelief-tf``` to have the same feature as ```adabelief-pytorch```, inlcuding decoupled weight decay and learning rate rectification. Furthermore, we will add support for TensorFlow>=2.0 and Keras. The source code is in ```pypi_packages/adabelief_tf0.1.0```. We tested with a ![text classification task](https://colab.research.google.com/drive/1wx-c5SRPLBomW9YNRvlOqoHy5aycV4lK?usp=sharing) and a ![word embedding task](https://colab.research.google.com/drive/14N9SpP4OiDsGacASWXsTM44FfK5KU-jM?usp=sharing).
  
 ## Quick Guide
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
@@ -90,7 +90,7 @@ optimizer = AdaBelief(model.parameters(), lr=1e-3, eps=1e-16, betas=(0.9,0.999),
 ```
 #### Adabelief with Ranger optimizer
 ```
-pip install ranger-adabelief==0.0.9
+pip install ranger-adabelief==0.1.0
 ```
 ```
 from ranger_adabelief import RangerAdaBelief
