@@ -20,7 +20,9 @@ setuptools.setup(
     ],
     install_requires=[
           'tensorflow>=2.0.0',
-          'tensorflow-addons'
+          'tensorflow-addons',
+          'colorama>=0.4.0',
+          'tabulate>=0.7',
       ],
     python_requires='>=3.6',
 )

@@ -19,6 +19,9 @@ from tensorflow_addons.utils.types import FloatTensorLike
 from typing import Union, Callable, Dict
 from typeguard import typechecked
 
+from tabulate import tabulate
+from colorama import Fore, Back, Style
+
 
 @tf.keras.utils.register_keras_serializable(package="Addons")
 class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
@@ -109,6 +112,22 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
                 compatibility, recommended to use `learning_rate` instead.
         """
         super().__init__(name, **kwargs)
+
+        # ------------------------------------------------------------------------------
+        # Print modifications to default arguments
+        print(Fore.RED + 'Please check your arguments if you have upgraded adabelief-tf from version 0.0.1.')
+        print(Fore.RED + 'Modifications to default arguments:')
+        default_table = tabulate([
+                ['adabelief-tf=0.0.1','1e-8','Not supported','Not supported'],
+                ['Current version (0.1.0)','1e-14','supported','default: True']],
+                headers=['eps','weight_decouple','rectify'])
+        print(Fore.RED + default_table)
+
+        print(Fore.RED +'For a complete table of recommended hyperparameters, see')
+        print(Fore.RED + 'https://github.com/juntang-zhuang/Adabelief-Optimizer')
+
+        print(Style.RESET_ALL)
+        # ------------------------------------------------------------------------------
 
         if isinstance(learning_rate, Dict):
             learning_rate = tf.keras.optimizers.schedules.deserialize(learning_rate)
