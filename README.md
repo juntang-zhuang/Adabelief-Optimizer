@@ -28,9 +28,9 @@ In the next release of ```adabelief-pytorch```, we will modify the default of se
 |   adabelief-pytorch=0.0.5 |   1e-8  |   False         |   False     |
 |   latest version 0.1.0>0.0.5|    1e-16 |    True         |    True     |
 
-## Update for ```adabelief-tf==0.1.0```
+## Update for ```adabelief-tf==0.1.0``` (Crucial)
 In ```adabelief-tf==0.1.0```, we modify ```adabelief-tf``` to have the same feature as ```adabelief-pytorch```, inlcuding decoupled weight decay and learning rate rectification. Furthermore, we will add support for TensorFlow>=2.0 and Keras. The source code is in ```pypi_packages/adabelief_tf0.1.0```. We tested with a [text classification task](https://colab.research.google.com/drive/1wx-c5SRPLBomW9YNRvlOqoHy5aycV4lK?usp=sharing) and a [word embedding task](https://colab.research.google.com/drive/14N9SpP4OiDsGacASWXsTM44FfK5KU-jM?usp=sharing). 
-The default value is updated:
+The default value is updated, please check if you specify these arguments or use the default when upgrade from version 0.0.1 to higher.:
 |   Version| epsilon | weight_decouple | rectify     | 
 |:--------:|---------|-----------------|-------------|
 |   adabelief-tf=0.0.1 |   1e-8  |   Not supported         |   Not supported     |
