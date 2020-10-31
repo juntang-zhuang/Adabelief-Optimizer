@@ -110,7 +110,7 @@ pip install adabelief-tf==0.0.1
 ```
 ```
 from adabelief_tf impoty AdaBeliefOptimizer
-optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
+optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-14, rectify=False) 
 ```
 
 <h2>A quick look at the algorithm</h2>
