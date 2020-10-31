@@ -69,7 +69,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 * <del> (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
 The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
 * <del>Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
-* Merge Tensorflow improvements
+* <del> Merge Tensorflow improvements </del>
 * <del>Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
 * Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)
 
@@ -79,6 +79,7 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```. <br> Code on Transformer to work with PyTorch 1.6 is at: https://github.com/juntang-zhuang/fairseq-adabelief <br>
   Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
 * Tested on a toy example of reinforcement learning. 
+* Released ```adabelief-pytorch==0.1.0``` and ```adabelief-tf==0.1.0```. The Tensorflow version now supports TF>=2.0 and Keras, with the same features as in the PyTorch version, including decoupled weight decay and rectification.
 
 ## Installation and usage
 
