@@ -3,7 +3,9 @@
 
 ## Table of Contents
 - [External Links](#external-links)
+- [Link to extra experiments](#link-to-code-for-extra-experiments-with-adabelief)
 - [Quick Guide](#quick-guide) Important infomation on hyper-params.
+- [Table of hyper-parameters](#table-of-hyper-parameters)
 - [Update Plan](#update-plan)
 - [Installation and usage](#Installation-and-usage)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
@@ -19,6 +21,7 @@
 * Transformer (PyTorch 1.1) https://github.com/juntang-zhuang/transformer-adabelief <br>
 * Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
 * Reinforcement Learning (Toy) https://github.com/juntang-zhuang/rainbow-adabelief <br>
+* Object detection (by yuanwei2019) https://github.com/yuanwei2019/EAdam-optimizer <br>
 
 ## Update for ```adabelief-pytorch==0.1.0``` (Crucial)
 In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of for general tasks such as GAN and Transformer. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
@@ -51,8 +54,8 @@ This implies when you use some techniques with Adam, to get a good result with A
 
 * Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and vary with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
 
-
-## Hyper-parameters in PyTorch
+## Table of Hyper-parameters
+### Hyper-parameters in PyTorch
 |   Task   |  lr | beta1 | beta2 | epsilon | weight_decay | weight_decouple | rectify     | fixed_decay | amsgrad |
 |:--------:|-----|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
 | Cifar    | 1e-3 | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False      | False   | False   |
@@ -64,7 +67,7 @@ This implies when you use some techniques with Adam, to get a good result with A
 | Transformer| 5e-4| 0.9 | 0.999  | 1e-16   | 1e-4         | True            | True      | False   | False   |
 | Reinforce| 1e-4 | 0.9 | 0.999 | 1e-10|     0.0           | True=False (decay=0)| True   | False   | False   |
 
-## Hyper-parameters in Tensorflow
+### Hyper-parameters in Tensorflow
 ```epsilon``` is used in a different way in Tensorflow (default 1e-7) compared to PyTorch (default 1e-8), so eps in Tensorflow might needs to be larger than in PyTorch (perhaps 100 times larger in Tensorflow, e.g.  eps=1e-16 in PyTorch v.s eps=1e-14 in Tensorflow). But personally I don't have much experience with Tensorflow, it's likely that you need to slightly tune eps.
 
 ## Update Plan
