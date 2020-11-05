@@ -41,7 +41,7 @@ The default value is updated, please check if you specify these arguments or use
 
 
 ## Table of Hyper-parameters 
-**Please check if you have specify all arguments and check your version is latest, the default might not be suitable for different tasks, see tables below
+### Please check if you have specify all arguments and check your version is latest, the default might not be suitable for different tasks, see tables below
 ### Hyper-parameters in PyTorch
 |   Task   |  lr | beta1 | beta2 | epsilon | weight_decay | weight_decouple | rectify     | fixed_decay | amsgrad |
 |:--------:|-----|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
@@ -54,7 +54,7 @@ The default value is updated, please check if you specify these arguments or use
 | Transformer| 5e-4| 0.9 | 0.999  | 1e-16   | 1e-4         | True            | True      | False   | False   |
 | Reinforce| 1e-4 | 0.9 | 0.999 | 1e-10|     0.0           | True=False (decay=0)| True   | False   | False   |
 
-### Hyper-parameters in Tensorflow
+### Hyper-parameters in Tensorflow (eps is Tensorflow might need to be larger than in PyTorch)
 ```epsilon``` is used in a different way in Tensorflow (default 1e-7) compared to PyTorch (default 1e-8), so eps in Tensorflow might needs to be larger than in PyTorch (perhaps 100 times larger in Tensorflow, e.g.  eps=1e-16 in PyTorch v.s eps=1e-14 in Tensorflow). But personally I don't have much experience with Tensorflow, it's likely that you need to slightly tune eps.
 
 ## Quick Guide
