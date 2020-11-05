@@ -6,8 +6,8 @@
 - [Link to extra experiments](#link-to-code-for-extra-experiments-with-adabelief)
 - [Table of hyper-parameters](#table-of-hyper-parameters)
 - [Quick Guide](#quick-guide) Important infomation on hyper-params.
-- [Update Plan](#update-plan)
 - [Installation and usage](#Installation-and-usage)
+- [Update Plan](#update-plan)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
 - [Detailed Discussions](#Discussions) 
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
@@ -71,25 +71,6 @@ This implies when you use some techniques with Adam, to get a good result with A
 
 * Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and vary with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
 
-## Update Plan
-### To do
-* <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
-* <del> Upload code for LSTM experiments. </del>
-* <del> (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
-The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
-* <del>Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
-* <del> Merge Tensorflow improvements </del>
-* <del>Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
-* Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)
-
-### Done
-* Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
-* LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
-* Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```. <br> Code on Transformer to work with PyTorch 1.6 is at: https://github.com/juntang-zhuang/fairseq-adabelief <br>
-  Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
-* Tested on a toy example of reinforcement learning. 
-* Released ```adabelief-pytorch==0.1.0``` and ```adabelief-tf==0.1.0```. The Tensorflow version now supports TF>=2.0 and Keras, with the same features as in the PyTorch version, including decoupled weight decay and rectification.
-
 ## Installation and usage
 
 ### 1. PyTorch implementations
@@ -134,7 +115,7 @@ optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-14, rectify=False)
               large step when observation <img src="https://render.githubusercontent.com/render/math?math=g_t"> is close to prediction <img src="https://render.githubusercontent.com/render/math?math=m_t">, and a small step when the observation greatly deviates
                from the prediction.
         </div>
-        
+
 ## Reproduce results in the paper 
 #### (Comparison with 8 other optimizers: SGD, Adam, AdaBound, RAdam, AdamW, Yogi, MSVAG, Fromage)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```. See  ```readme.txt``` in each subfolder for visualization, or
@@ -217,6 +198,25 @@ I got some feedbacks on RNN on reddit discussion, here are a few tips:
 
 ##### 8. Contact
 Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would like to help improve it, especially the tensorflow version, or explore combination with other methods, some discussion on the theory part, or combination with other methods to create a better optimizer. Any thoughts are welcome!
+
+## Update Plan
+### To do
+* <del>Someone (under the wechat group Jiqizhixin) points out that the results on GAN is bad, this might be due to the choice of GAN model (We pick the simplest code example from PyTorch docs without adding more tricks), and we did not perform cherry-picking or worsen the baseline perfomance intentionally. We will update results on new GANs (e.g. SN-GAN) and release code later. </del> 
+* <del> Upload code for LSTM experiments. </del>
+* <del> (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
+The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
+* <del>Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
+* <del> Merge Tensorflow improvements </del>
+* <del>Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
+* Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)
+
+### Done
+* Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
+* LSTM experiments uploaded to ```PyTorch_Experiments/LSTM```
+* Identify the problem of Transformer with PyTorch 1.4, to be an old version ```fairseq``` is incompatible with new version PyTorch, works fine with latest ```fairseq```. <br> Code on Transformer to work with PyTorch 1.6 is at: https://github.com/juntang-zhuang/fairseq-adabelief <br>
+  Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
+* Tested on a toy example of reinforcement learning. 
+* Released ```adabelief-pytorch==0.1.0``` and ```adabelief-tf==0.1.0```. The Tensorflow version now supports TF>=2.0 and Keras, with the same features as in the PyTorch version, including decoupled weight decay and rectification.
 
 ## Citation
 ```
