@@ -7,10 +7,10 @@
 - [Table of hyper-parameters](#table-of-hyper-parameters)
 - [Quick Guide](#quick-guide) Important infomation on hyper-params.
 - [Installation and usage](#Installation-and-usage)
-- [Update Plan](#update-plan)
 - [A quick look at the algorithm](#a-quick-look-at-the-algorithm)
 - [Detailed Discussions](#Discussions) 
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
+- [Update Plan](#update-plan)
 - [Citation](#citation)
 
 ## External Links
@@ -155,7 +155,7 @@ refer to jupyter notebook for visualization.
 ## Discussions
 
 #### Installation
-Please instal the latest version from pip, old versions might suffer from bugs. Source code for up-to-date package is available in folder ```pypi_packages```. 
+Please install the latest version from pip, old versions might suffer from bugs. Source code for up-to-date package is available in folder ```pypi_packages```. 
 #### Discussion on algorithms
 ##### 1. Weight Decay: 
 - Decoupling (argument ```weight_decouple ``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
