@@ -98,7 +98,7 @@ optimizer = RangerAdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0
 pip install adabelief-tf==0.0.1
 ```
 ```
-from adabelief_tf impoty AdaBeliefOptimizer
+from adabelief_tf import AdaBeliefOptimizer
 optimizer = AdaBeliefOptimizer(learning_rate, epsilon=1e-12) 
 ```
 

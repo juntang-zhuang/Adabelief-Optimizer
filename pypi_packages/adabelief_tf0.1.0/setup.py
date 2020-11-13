@@ -8,8 +8,8 @@ setuptools.setup(
     version="0.1.0",
     author="Juntang Zhuang",
     author_email="j.zhuang@yale.edu",
-    description="PyTorch implementation of AdaBelief Optimizer",
-    long_description="PyTorch implementation of AdaBelief Optimizer",
+    description="Tensorflow implementation of AdaBelief Optimizer",
+    long_description="Tensorflow implementation of AdaBelief Optimizer",
     long_description_content_type="text/markdown",
     url="https://juntang-zhuang.github.io/adabelief/",
     packages=setuptools.find_packages(),
@@ -19,8 +19,9 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'tensorflow>=2.1.0',
-          'tensorflow-addons'
+          'tensorflow>=2.0.0',
+          'colorama>=0.4.0',
+          'tabulate>=0.7',
       ],
     python_requires='>=3.6',
 )
