@@ -59,6 +59,12 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     adabelief = AdaBeliefOptimizer()
     ranger = tfa.optimizers.Lookahead(adabelief, sync_period=6, slow_step_size=0.5)
     ```
+    Example of serialization:
+    ```python
+    optimizer = AdaBeliefOptimizer(learning_rate=lr_scheduler, weight_decay=wd_scheduler)
+    config = tf.keras.optimizers.serialize(optimizer)
+    new_optimizer = tf.keras.optimizers.deserialize(config, custom_objects={"AdaBeliefOptimizer": AdaBeliefOptimizer})
+    ```
     """
 
     def __init__(
@@ -74,9 +80,9 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         total_steps=0,
         warmup_proportion=0.1,
         min_lr=0.0,
-        name="AdaBelief",
+        name="AdaBeliefOptimizer",
         **kwargs):
-        r"""Construct a new RAdam optimizer.
+        r"""Construct a new AdaBelief optimizer.
         Args:
             learning_rate: A `Tensor` or a floating point value, or a schedule
                 that is a `tf.keras.optimizers.schedules.LearningRateSchedule`.
