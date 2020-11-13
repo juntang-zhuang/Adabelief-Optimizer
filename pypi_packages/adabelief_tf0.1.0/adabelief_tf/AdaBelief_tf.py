@@ -13,25 +13,25 @@
 # limitations under the License.
 # ==============================================================================
 """AdaBeliefOptimizer optimizer."""
-import tensorflow as tf
-from tensorflow_addons.utils.types import FloatTensorLike
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
-from typing import Union, Callable, Dict
-from typeguard import typechecked
+import tensorflow as tf
 
 from tabulate import tabulate
 from colorama import Fore, Back, Style
 
 
-@tf.keras.utils.register_keras_serializable(package="Addons")
 class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     """
     It implements the AdaBeliefOptimizer proposed by
-    Juntang Zhuang et al. in [AdaBeliefOptimizer Optimizer: Adapting stepsizes by the belief
+    Juntang Zhuang et al. in [AdaBelief Optimizer: Adapting stepsizes by the belief
     in observed gradients](https://arxiv.org/abs/2010.07468).
     Example of usage:
     ```python
-    opt = tfa.optimizers.AdaBeliefOptimizer(lr=1e-3)
+    from adabelief_tf impoty AdaBeliefOptimizer
+    opt = AdaBeliefOptimizer(lr=1e-3)
     ```
     Note: `amsgrad` is not described in the original paper. Use it with
           caution.
@@ -39,7 +39,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     kept if warmup has already been employed and tuned in the baseline method.
     You can enable warmup by setting `total_steps` and `warmup_proportion`:
     ```python
-    opt = tfa.optimizers.AdaBeliefOptimizer(
+    opt = AdaBeliefOptimizer(
         lr=1e-3,
         total_steps=10000,
         warmup_proportion=0.1,
@@ -56,28 +56,32 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     be called "Ranger". The mechanism can be enabled by using the lookahead
     wrapper. For example:
     ```python
-    adabelief = tfa.optimizers.AdaBeliefOptimizer()
+    adabelief = AdaBeliefOptimizer()
     ranger = tfa.optimizers.Lookahead(adabelief, sync_period=6, slow_step_size=0.5)
+    ```
+    Example of serialization:
+    ```python
+    optimizer = AdaBeliefOptimizer(learning_rate=lr_scheduler, weight_decay=wd_scheduler)
+    config = tf.keras.optimizers.serialize(optimizer)
+    new_optimizer = tf.keras.optimizers.deserialize(config, custom_objects={"AdaBeliefOptimizer": AdaBeliefOptimizer})
     ```
     """
 
-    @typechecked
     def __init__(
         self,
-        learning_rate: Union[FloatTensorLike, Callable, Dict] = 0.001,
-        beta_1: FloatTensorLike = 0.9,
-        beta_2: FloatTensorLike = 0.999,
-        epsilon: FloatTensorLike = 1e-14,
-        weight_decay: Union[FloatTensorLike, Callable, Dict] = 0.0,
-        rectify: bool = True,
-        amsgrad: bool = False,
-        sma_threshold: FloatTensorLike = 5.0,
-        total_steps: int = 0,
-        warmup_proportion: FloatTensorLike = 0.1,
-        min_lr: FloatTensorLike = 0.0,
-        name: str = "AdaBeliefOptimizer",
-        **kwargs
-    ):
+        learning_rate=0.001,
+        beta_1=0.9,
+        beta_2=0.999,
+        epsilon=1e-14,
+        weight_decay=0.0,
+        rectify=True,
+        amsgrad=False,
+        sma_threshold=5.0,
+        total_steps=0,
+        warmup_proportion=0.1,
+        min_lr=0.0,
+        name="AdaBeliefOptimizer",
+        **kwargs):
         r"""Construct a new AdaBelief optimizer.
         Args:
             learning_rate: A `Tensor` or a floating point value, or a schedule
@@ -129,12 +133,6 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         print(Style.RESET_ALL)
         # ------------------------------------------------------------------------------
 
-        if isinstance(learning_rate, Dict):
-            learning_rate = tf.keras.optimizers.schedules.deserialize(learning_rate)
-
-        if isinstance(weight_decay, Dict):
-            weight_decay = tf.keras.optimizers.schedules.deserialize(weight_decay)
-
         self._set_hyper("learning_rate", kwargs.get("lr", learning_rate))
         self._set_hyper("beta_1", beta_1)
         self._set_hyper("beta_2", beta_2)
@@ -184,8 +182,8 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         beta_2_t = self._get_hyper("beta_2", var_dtype)
         epsilon_t = tf.convert_to_tensor(self.epsilon, var_dtype)
         local_step = tf.cast(self.iterations + 1, var_dtype)
-        beta_1_power = tf.pow(beta_1_t, local_step)
-        beta_2_power = tf.pow(beta_2_t, local_step)
+        beta_1_power = tf.math.pow(beta_1_t, local_step)
+        beta_2_power = tf.math.pow(beta_2_t, local_step)
 
         if self._initial_total_steps > 0:
             total_steps = self._get_hyper("total_steps", var_dtype)
@@ -210,18 +208,19 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         grad_dif = self.get_slot(var,'grad_dif')
         grad_dif.assign( grad - m_t )
         v_t = v.assign(
-            beta_2_t * v + (1.0 - beta_2_t) * tf.square(grad_dif) + epsilon_t,
+            beta_2_t * v + (1.0 - beta_2_t) * tf.math.square(grad - m_t) + epsilon_t,
             use_locking=self._use_locking,
         )
+
         if self.amsgrad:
             vhat = self.get_slot(var, "vhat")
             vhat_t = vhat.assign(tf.maximum(vhat, v_t), use_locking=self._use_locking)
-            v_corr_t = tf.sqrt(vhat_t / (1.0 - beta_2_power))
+            v_corr_t = tf.math.sqrt(vhat_t / (1.0 - beta_2_power))
         else:
             vhat_t = None
-            v_corr_t = tf.sqrt(v_t / (1.0 - beta_2_power))
+            v_corr_t = tf.math.sqrt(v_t / (1.0 - beta_2_power))
 
-        r_t = tf.sqrt(
+        r_t = tf.math.sqrt(
             (sma_t - 4.0)
             / (sma_inf - 4.0)
             * (sma_t - 2.0)
@@ -233,10 +232,12 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         if self.rectify:
             sma_threshold = self._get_hyper("sma_threshold", var_dtype)
             var_t = tf.where(
-                sma_t >= sma_threshold, r_t * m_corr_t / (v_corr_t + epsilon_t), m_corr_t
+                sma_t >= sma_threshold,
+                r_t * m_corr_t / (v_corr_t + epsilon_t),
+                m_corr_t,
             )
         else:
-            var_t =  m_corr_t / (v_corr_t + epsilon_t)
+            var_t = m_corr_t / (v_corr_t + epsilon_t)
 
         if self._has_weight_decay:
             var_t += wd_t * var
@@ -256,8 +257,8 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         beta_2_t = self._get_hyper("beta_2", var_dtype)
         epsilon_t = tf.convert_to_tensor(self.epsilon, var_dtype)
         local_step = tf.cast(self.iterations + 1, var_dtype)
-        beta_1_power = tf.pow(beta_1_t, local_step)
-        beta_2_power = tf.pow(beta_2_t, local_step)
+        beta_1_power = tf.math.pow(beta_1_t, local_step)
+        beta_2_power = tf.math.pow(beta_2_t, local_step)
 
         if self._initial_total_steps > 0:
             total_steps = self._get_hyper("total_steps", var_dtype)
@@ -277,8 +278,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         m = self.get_slot(var, "m")
         m_scaled_g_values = grad * (1 - beta_1_t)
         m_t = m.assign(m * beta_1_t, use_locking=self._use_locking)
-        with tf.control_dependencies([m_t]):
-            m_t = self._resource_scatter_add(m, indices, m_scaled_g_values)
+        m_t = self._resource_scatter_add(m, indices, m_scaled_g_values)
         m_corr_t = m_t / (1.0 - beta_1_power)
 
         grad_dif = self.get_slot(var,'grad_dif')
@@ -286,19 +286,20 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         grad_dif = self._resource_scatter_add(grad_dif, indices, -1.0 * grad)
 
         v = self.get_slot(var, "v")
-        v_scaled_g_values = grad_dif * grad_dif * (1 - beta_2_t)
+        m_t_indices = tf.gather(m_t, indices)
+        v_scaled_g_values = tf.math.square(grad - m_t_indices) * (1 - beta_2_t)
         v_t = v.assign(v * beta_2_t + epsilon_t, use_locking=self._use_locking)
-        v_t = v.assign(v_t + v_scaled_g_values)
+        v_t = self._resource_scatter_add(v, indices, v_scaled_g_values)
 
         if self.amsgrad:
             vhat = self.get_slot(var, "vhat")
             vhat_t = vhat.assign(tf.maximum(vhat, v_t), use_locking=self._use_locking)
-            v_corr_t = tf.sqrt(vhat_t / (1.0 - beta_2_power))
+            v_corr_t = tf.math.sqrt(vhat_t / (1.0 - beta_2_power))
         else:
             vhat_t = None
-            v_corr_t = tf.sqrt(v_t / (1.0 - beta_2_power))
+            v_corr_t = tf.math.sqrt(v_t / (1.0 - beta_2_power))
 
-        r_t = tf.sqrt(
+        r_t = tf.math.sqrt(
             (sma_t - 4.0)
             / (sma_inf - 4.0)
             * (sma_t - 2.0)
@@ -310,18 +311,19 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         if self.rectify:
             sma_threshold = self._get_hyper("sma_threshold", var_dtype)
             var_t = tf.where(
-            sma_t >= sma_threshold, r_t * m_corr_t / (v_corr_t + epsilon_t), m_corr_t
+                sma_t >= sma_threshold,
+                r_t * m_corr_t / (v_corr_t + epsilon_t),
+                m_corr_t,
             )
         else:
-            var_t =  m_corr_t / (v_corr_t + epsilon_t)
+            var_t = m_corr_t / (v_corr_t + epsilon_t)
 
         if self._has_weight_decay:
             var_t += wd_t * var
 
-        with tf.control_dependencies([var_t]):
-            var_update = self._resource_scatter_add(
-                var, indices, tf.gather(-lr_t * var_t, indices)
-            )
+        var_update = self._resource_scatter_add(
+            var, indices, tf.gather(-lr_t * var_t, indices)
+        )
 
         updates = [var_update, m_t, v_t]
         if self.amsgrad:
