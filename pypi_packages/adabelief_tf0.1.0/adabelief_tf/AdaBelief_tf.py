@@ -1,4 +1,4 @@
-# Copyright 2019 The TensorFlow Authors. All Rights Reserved.
+# Copyright 2020 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     ```
     Note: `amsgrad` is not described in the original paper. Use it with
           caution.
-    AdaBelief is not a placement of the heuristic warmup, the settings should be
+    AdaBeliefOptimizer is not a placement of the heuristic warmup, the settings should be
     kept if warmup has already been employed and tuned in the baseline method.
     You can enable warmup by setting `total_steps` and `warmup_proportion`:
     ```python
@@ -51,7 +51,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     in 9000 steps.
     Lookahead, proposed by Michael R. Zhang et.al in the paper
     [Lookahead Optimizer: k steps forward, 1 step back]
-    (https://arxiv.org/abs/1907.08610v1), can be integrated with AdaBelief,
+    (https://arxiv.org/abs/1907.08610v1), can be integrated with AdaBeliefOptimizer,
     which is announced by Less Wright and the new combined optimizer can also
     be called "Ranger". The mechanism can be enabled by using the lookahead
     wrapper. For example:
@@ -101,7 +101,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
                 The proportion of increasing steps.
             min_lr: A floating point value. Minimum learning rate after warmup.
             name: Optional name for the operations created when applying
-                gradients. Defaults to "AdaBelief".
+                gradients. Defaults to "AdaBeliefOptimizer".
             **kwargs: keyword arguments. Allowed to be {`clipnorm`,
                 `clipvalue`, `lr`, `decay`}. `clipnorm` is clip gradients
                 by norm; `clipvalue` is clip gradients by value, `decay` is
@@ -147,6 +147,8 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
             self.add_slot(var, "m")
         for var in var_list:
             self.add_slot(var, "v")
+        for var in var_list:
+            self.add_slot(var, "grad_dif")
         if self.amsgrad:
             for var in var_list:
                 self.add_slot(var, "vhat")
@@ -154,7 +156,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     def set_weights(self, weights):
         params = self.weights
         num_vars = int((len(params) - 1) / 2)
-        if len(weights) == 3 * num_vars + 1:
+        if len(weights) == 4 * num_vars + 1:
             weights = weights[: len(params)]
         super().set_weights(weights)
 
@@ -197,6 +199,8 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         )
         m_corr_t = m_t / (1.0 - beta_1_power)
 
+        grad_dif = self.get_slot(var,'grad_dif')
+        grad_dif.assign( grad - m_t )
         v_t = v.assign(
             beta_2_t * v + (1.0 - beta_2_t) * tf.math.square(grad - m_t) + epsilon_t,
             use_locking=self._use_locking,
@@ -270,6 +274,10 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         m_t = m.assign(m * beta_1_t, use_locking=self._use_locking)
         m_t = self._resource_scatter_add(m, indices, m_scaled_g_values)
         m_corr_t = m_t / (1.0 - beta_1_power)
+
+        grad_dif = self.get_slot(var,'grad_dif')
+        grad_dif.assign(m_t)
+        grad_dif = self._resource_scatter_add(grad_dif, indices, -1.0 * grad)
 
         v = self.get_slot(var, "v")
         m_t_indices = tf.gather(m_t, indices)
