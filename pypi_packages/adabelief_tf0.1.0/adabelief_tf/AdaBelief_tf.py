@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""AdaBelief optimizer."""
+"""AdaBeliefOptimizer optimizer."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -23,14 +23,15 @@ from tabulate import tabulate
 from colorama import Fore, Back, Style
 
 
-class AdaBelief(tf.keras.optimizers.Optimizer):
+class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     """
-    It implements the AdaBelief proposed by
+    It implements the AdaBeliefOptimizer proposed by
     Juntang Zhuang et al. in [AdaBelief Optimizer: Adapting stepsizes by the belief
     in observed gradients](https://arxiv.org/abs/2010.07468).
     Example of usage:
     ```python
-    opt = tfa.optimizers.AdaBelief(lr=1e-3)
+    from adabelief_tf impoty AdaBeliefOptimizer
+    opt = AdaBeliefOptimizer(lr=1e-3)
     ```
     Note: `amsgrad` is not described in the original paper. Use it with
           caution.
@@ -38,7 +39,7 @@ class AdaBelief(tf.keras.optimizers.Optimizer):
     kept if warmup has already been employed and tuned in the baseline method.
     You can enable warmup by setting `total_steps` and `warmup_proportion`:
     ```python
-    opt = tfa.optimizers.AdaBelief(
+    opt = AdaBeliefOptimizer(
         lr=1e-3,
         total_steps=10000,
         warmup_proportion=0.1,
@@ -55,7 +56,7 @@ class AdaBelief(tf.keras.optimizers.Optimizer):
     be called "Ranger". The mechanism can be enabled by using the lookahead
     wrapper. For example:
     ```python
-    adabelief = tfa.optimizers.AdaBelief()
+    adabelief = AdaBeliefOptimizer()
     ranger = tfa.optimizers.Lookahead(adabelief, sync_period=6, slow_step_size=0.5)
     ```
     """
@@ -125,7 +126,7 @@ class AdaBelief(tf.keras.optimizers.Optimizer):
 
         print(Style.RESET_ALL)
         # ------------------------------------------------------------------------------
-        
+
         self._set_hyper("learning_rate", kwargs.get("lr", learning_rate))
         self._set_hyper("beta_1", beta_1)
         self._set_hyper("beta_2", beta_2)

@@ -21,7 +21,7 @@ import numpy as np
 import tensorflow as tf
 
 from pathlib import Path
-from AdaBelief_tf import AdaBelief
+from AdaBelief_tf import AdaBeliefOptimizer
 
 
 def is_gpu_available():
@@ -198,7 +198,7 @@ def test_sparse():
         )
 
         epsilon = 1e-7
-        optimizer = AdaBelief(epsilon=epsilon)
+        optimizer = AdaBeliefOptimizer(epsilon=epsilon)
 
         # Fetch params to validate initial values
         np.testing.assert_allclose(np.asanyarray([1.0, 1.0, 2.0]), var0.numpy())
@@ -244,7 +244,7 @@ def test_basic_with_learning_rate_decay():
         decay = 0.5
         weight_decay = 0.01
 
-        opt = AdaBelief(
+        opt = AdaBeliefOptimizer(
             learning_rate=learning_rate,
             beta_1=beta_1,
             beta_2=beta_2,
@@ -299,7 +299,7 @@ def test_basic_with_learning_rate_inverse_time_decay():
         beta_2 = 0.999
         epsilon = 1e-14
 
-        opt = AdaBelief(
+        opt = AdaBeliefOptimizer(
             learning_rate=lr_schedule, beta_1=beta_1, beta_2=beta_2, epsilon=epsilon
         )
 
@@ -339,7 +339,7 @@ def test_tensor_learning_rate():
         var1 = tf.Variable(var1_np)
         grads0 = tf.constant(grads0_np)
         grads1 = tf.constant(grads1_np)
-        opt = AdaBelief(lr=tf.constant(0.001))
+        opt = AdaBeliefOptimizer(lr=tf.constant(0.001))
 
         # Fetch params to validate initial values
         np.testing.assert_allclose(np.asanyarray([1.0, 2.0]), var0.numpy())
@@ -378,7 +378,7 @@ def test_sharing():
         var1 = tf.Variable(var1_np)
         grads0 = tf.constant(grads0_np)
         grads1 = tf.constant(grads1_np)
-        opt = AdaBelief()
+        opt = AdaBeliefOptimizer()
 
         # Fetch params to validate initial values
         np.testing.assert_allclose(np.asanyarray([1.0, 2.0]), var0.numpy())
@@ -407,7 +407,7 @@ def test_minimize_mean_square_loss_with_weight_decay():
     def loss():
         return tf.reduce_mean(tf.square(x - w))
 
-    opt = AdaBelief(0.02, weight_decay=0.01)
+    opt = AdaBeliefOptimizer(0.02, weight_decay=0.01)
 
     # Run 200 steps
     for _ in range(200):
@@ -436,7 +436,7 @@ def test_resource():
         def learning_rate():
             return 0.001
 
-        opt = AdaBelief(learning_rate=learning_rate)
+        opt = AdaBeliefOptimizer(learning_rate=learning_rate)
 
         # Run 3 steps of AdaBelief
         for t in range(3):
@@ -489,7 +489,7 @@ def test_dense_sample():
     run_dense_sample(
         iterations=100,
         expected=[[0.9475605, 1.9471607], [2.94784, 3.9478]],
-        optimizer=AdaBelief(lr=1e-3),
+        optimizer=AdaBeliefOptimizer(lr=1e-3),
     )
 
 
@@ -498,7 +498,7 @@ def test_sparse_sample():
     run_sparse_sample(
         iterations=200,
         expected=[[0.78374314, 2.0], [3.0, 3.7839816]],
-        optimizer=AdaBelief(lr=1e-3),
+        optimizer=AdaBeliefOptimizer(lr=1e-3),
     )
 
 
@@ -507,7 +507,7 @@ def test_dense_sample_with_amsgrad():
     run_dense_sample(
         iterations=100,
         expected=[[0.9485513, 1.9481515], [2.9488308, 3.9487908]],
-        optimizer=AdaBelief(lr=1e-3, amsgrad=True),
+        optimizer=AdaBeliefOptimizer(lr=1e-3, amsgrad=True),
     )
 
 
@@ -516,7 +516,7 @@ def test_sparse_sample_with_amsgrad():
     run_sparse_sample(
         iterations=200,
         expected=[[0.7947248, 2.0], [3.0, 3.7949643]],
-        optimizer=AdaBelief(lr=1e-3, amsgrad=True),
+        optimizer=AdaBeliefOptimizer(lr=1e-3, amsgrad=True),
     )
 
 
@@ -525,7 +525,7 @@ def test_dense_sample_with_weight_decay():
     run_dense_sample(
         iterations=100,
         expected=[[0.94657826, 1.9451787], [2.9448593, 3.9438188]],
-        optimizer=AdaBelief(lr=1e-3, weight_decay=0.01),
+        optimizer=AdaBeliefOptimizer(lr=1e-3, weight_decay=0.01),
     )
 
 
@@ -534,7 +534,7 @@ def test_sparse_sample_with_weight_decay():
     run_sparse_sample(
         iterations=200,
         expected=[[0.7818859, 2.0], [3.0, 3.7761304]],
-        optimizer=AdaBelief(lr=1e-3, weight_decay=0.01),
+        optimizer=AdaBeliefOptimizer(lr=1e-3, weight_decay=0.01),
     )
 
 
@@ -543,7 +543,7 @@ def test_dense_sample_with_warmup():
     run_dense_sample(
         iterations=100,
         expected=[[0.9811546, 1.9810544], [2.981224, 3.981214]],
-        optimizer=AdaBelief(
+        optimizer=AdaBeliefOptimizer(
             lr=1e-3, total_steps=100, warmup_proportion=0.1, min_lr=1e-5
         ),
     )
@@ -554,7 +554,7 @@ def test_sparse_sample_with_warmup():
     run_sparse_sample(
         iterations=200,
         expected=[[0.9211433, 2.0], [3.0, 3.9211729]],
-        optimizer=AdaBelief(
+        optimizer=AdaBeliefOptimizer(
             lr=1e-3, total_steps=200, warmup_proportion=0.1, min_lr=1e-5
         ),
     )
@@ -565,7 +565,7 @@ def test_dense_sample_without_rectify():
     run_dense_sample(
         iterations=100,
         expected=[[0.6672395, 1.6672392], [2.667238, 3.6672378]],
-        optimizer=AdaBelief(lr=1e-3, rectify=False),
+        optimizer=AdaBeliefOptimizer(lr=1e-3, rectify=False),
     )
 
 
@@ -574,23 +574,23 @@ def test_sparse_sample_without_rectify():
     run_sparse_sample(
         iterations=200,
         expected=[[0.0538935, 2.0], [3.0, 3.0538921]],
-        optimizer=AdaBelief(lr=1e-3, rectify=False),
+        optimizer=AdaBeliefOptimizer(lr=1e-3, rectify=False),
     )
 
 
 def test_get_config():
-    opt = AdaBelief(lr=1e-4)
+    opt = AdaBeliefOptimizer(lr=1e-4)
     config = opt.get_config()
     assert config["learning_rate"] == 1e-4
     assert config["total_steps"] == 0
 
 
 def test_serialization():
-    optimizer = AdaBelief(
+    optimizer = AdaBeliefOptimizer(
         lr=1e-3, total_steps=10000, warmup_proportion=0.1, min_lr=1e-5
     )
     config = tf.keras.optimizers.serialize(optimizer)
-    new_optimizer = tf.keras.optimizers.deserialize(config, custom_objects={"AdaBelief": AdaBelief})
+    new_optimizer = tf.keras.optimizers.deserialize(config, custom_objects={"AdaBeliefOptimizer": AdaBeliefOptimizer})
     assert new_optimizer.get_config() == optimizer.get_config()
 
 
@@ -602,7 +602,7 @@ def test_schedulers():
     run_dense_sample(
         iterations=100,
         expected=[[0.9778532, 1.9773799], [2.977964, 3.977844]],
-        optimizer=AdaBelief(learning_rate=lr_scheduler, weight_decay=wd_scheduler),
+        optimizer=AdaBeliefOptimizer(learning_rate=lr_scheduler, weight_decay=wd_scheduler),
     )
 
 
@@ -610,9 +610,9 @@ def test_scheduler_serialization():
     lr_scheduler = tf.keras.optimizers.schedules.ExponentialDecay(1e-3, 50, 0.5)
     wd_scheduler = tf.keras.optimizers.schedules.InverseTimeDecay(2e-3, 25, 0.25)
 
-    optimizer = AdaBelief(learning_rate=lr_scheduler, weight_decay=wd_scheduler)
+    optimizer = AdaBeliefOptimizer(learning_rate=lr_scheduler, weight_decay=wd_scheduler)
     config = tf.keras.optimizers.serialize(optimizer)
-    new_optimizer = tf.keras.optimizers.deserialize(config, custom_objects={"AdaBelief": AdaBelief})
+    new_optimizer = tf.keras.optimizers.deserialize(config, custom_objects={"AdaBeliefOptimizer": AdaBeliefOptimizer})
     assert new_optimizer.get_config() == optimizer.get_config()
 
     assert new_optimizer.get_config()["learning_rate"] == {
