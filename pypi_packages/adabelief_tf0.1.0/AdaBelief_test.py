@@ -21,7 +21,7 @@ import numpy as np
 import tensorflow as tf
 
 from pathlib import Path
-from AdaBelief_tf import AdaBeliefOptimizer
+from adabelief_tf.AdaBelief_tf import AdaBeliefOptimizer
 
 
 def is_gpu_available():
