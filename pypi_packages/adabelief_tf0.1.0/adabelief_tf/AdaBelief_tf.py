@@ -153,8 +153,6 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
             self.add_slot(var, "m")
         for var in var_list:
             self.add_slot(var, "v")
-        for var in var_list:
-            self.add_slot(var, "grad_dif")
         if self.amsgrad:
             for var in var_list:
                 self.add_slot(var, "vhat")
@@ -162,7 +160,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
     def set_weights(self, weights):
         params = self.weights
         num_vars = int((len(params) - 1) / 2)
-        if len(weights) == 4 * num_vars + 1:
+        if len(weights) == 3 * num_vars + 1:
             weights = weights[: len(params)]
         super().set_weights(weights)
 
@@ -205,8 +203,6 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         )
         m_corr_t = m_t / (1.0 - beta_1_power)
 
-        grad_dif = self.get_slot(var,'grad_dif')
-        grad_dif.assign( grad - m_t )
         v_t = v.assign(
             beta_2_t * v + (1.0 - beta_2_t) * tf.math.square(grad - m_t) + epsilon_t,
             use_locking=self._use_locking,
@@ -280,10 +276,6 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
         m_t = m.assign(m * beta_1_t, use_locking=self._use_locking)
         m_t = self._resource_scatter_add(m, indices, m_scaled_g_values)
         m_corr_t = m_t / (1.0 - beta_1_power)
-
-        grad_dif = self.get_slot(var,'grad_dif')
-        grad_dif.assign(m_t)
-        grad_dif = self._resource_scatter_add(grad_dif, indices, -1.0 * grad)
 
         v = self.get_slot(var, "v")
         m_t_indices = tf.gather(m_t, indices)
