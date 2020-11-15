@@ -54,7 +54,7 @@ The default value is updated, please check if you specify these arguments or use
 | GAN  (small)| 2e-4 |0.5| 0.999 | 1e-12   | 0            | True=False (decay=0)| False   | False   | False   |
 | SN-GAN (large)|2e-4 | 0.5   | 0.999 | 1e-16   | 0     | True=False (decay=0)| True      | False   | False   |
 | Transformer| 5e-4| 0.9 | 0.999  | 1e-16   | 1e-4         | True            | True      | False   | False   |
-| Reinforcement learning| 1e-4 | 0.9 | 0.999 | 1e-10|     0.0           | True=False (decay=0)| True   | False   | False   |
+| Reinforcement (Rainbow)| 1e-4 | 0.9 | 0.999 | 1e-10|     0.0           | True=False (decay=0)| True   | False   | False   |
 
 
 ### Hyper-parameters in Tensorflow (eps in Tensorflow might need to be larger than in PyTorch)
