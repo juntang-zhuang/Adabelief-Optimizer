@@ -40,6 +40,21 @@ The default value is updated, please check if you specify these arguments or use
 |   adabelief-tf=0.0.1 |   1e-8  |   Not supported         |   Not supported     |
 |   latest version 0.1.0>0.0.1|    1e-14 |    Supported         |    default: True     |
 
+## General Principle to use AdaBelief in your experiments
+
+* Check if the code is from the latest official implementation (adabelief-pytorch==0.1.0, adabelief-tf==0.1.0)
+      Default hyper-parameters are different from the old version.
+
+* In your experiment,
+
+     >Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam)
+     >( eps of Adam in Tensorflow is 1e-7, in PyTorch is 1e-8, need to consider this when use AdaBelief in Tensorflow)
+     
+     >> If SGD > Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow
+     >> If SGD < Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps)
+     >> If AdamW > Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down)
+
+* Check ALL hyper-parameters. Refer to our github page for a list of recommended hyper-parameters
 
 ## Table of Hyper-parameters 
 ### Please check if you have specify all arguments and check your version is latest, the default might not be suitable for different tasks, see tables below
@@ -60,6 +75,7 @@ The default value is updated, please check if you specify these arguments or use
 
 ### Hyper-parameters in Tensorflow (eps in Tensorflow might need to be larger than in PyTorch)
 ```epsilon``` is used in a different way in Tensorflow (default 1e-7) compared to PyTorch (default 1e-8), so eps in Tensorflow might needs to be larger than in PyTorch (perhaps 100 times larger in Tensorflow, e.g.  eps=1e-16 in PyTorch v.s eps=1e-14 in Tensorflow). But personally I don't have much experience with Tensorflow, it's likely that you need to slightly tune eps.
+
 
 ## Quick Guide
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
