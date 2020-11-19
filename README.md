@@ -40,7 +40,7 @@ The default value is updated, please check if you specify these arguments or use
 |   adabelief-tf=0.0.1 |   1e-8  |   Not supported         |   Not supported     |
 |   latest version 0.1.0>0.0.1|    1e-14 |    Supported         |    default: True     |
 
-## General Principle to use AdaBelief in your experiments
+## Quick Guide
 
 * Check if the code is from the latest official implementation (adabelief-pytorch==0.1.0, adabelief-tf==0.1.0)
       Default hyper-parameters are different from the old version.
@@ -50,9 +50,9 @@ The default value is updated, please check if you specify these arguments or use
      >Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam) <br>
      >( eps of Adam in Tensorflow is 1e-7, in PyTorch is 1e-8, need to consider this when use AdaBelief in Tensorflow) <br>
      
-     >> If SGD > Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow <br>
-     >> If SGD < Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps) <br>
-     >> If AdamW > Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down) <br>
+     >> If SGD is better than Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow <br>
+     >> If SGD is worse than Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps) <br>
+     >> If AdamW is better than Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down) <br>
 
 * Check ALL hyper-parameters. Refer to our github page for a list of recommended hyper-parameters
 
@@ -75,21 +75,6 @@ The default value is updated, please check if you specify these arguments or use
 
 ### Hyper-parameters in Tensorflow (eps in Tensorflow might need to be larger than in PyTorch)
 ```epsilon``` is used in a different way in Tensorflow (default 1e-7) compared to PyTorch (default 1e-8), so eps in Tensorflow might needs to be larger than in PyTorch (perhaps 100 times larger in Tensorflow, e.g.  eps=1e-16 in PyTorch v.s eps=1e-14 in Tensorflow). But personally I don't have much experience with Tensorflow, it's likely that you need to slightly tune eps.
-
-
-## Quick Guide
-AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
-This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
-
-* ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x*x``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, will modify it later to 1e-12 or 1e-16 later.
-
-* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), such as on image recognition, you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, such as GAN, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
-
-* If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay in AdaBelief. Note that many optimizers uses decoupled weight decay without specifying it as an options, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
-
-* Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
-
-* Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and vary with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
 
 ## Installation and usage
 
@@ -176,6 +161,21 @@ refer to jupyter notebook for visualization.
 
 #### Installation
 Please install the latest version from pip, old versions might suffer from bugs. Source code for up-to-date package is available in folder ```pypi_packages```. 
+
+#### Discussion on hyper-parameters
+AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
+This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
+
+* ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x*x``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, will modify it later to 1e-12 or 1e-16 later.
+
+* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), such as on image recognition, you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, such as GAN, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
+
+* If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay in AdaBelief. Note that many optimizers uses decoupled weight decay without specifying it as an options, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
+
+* Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
+
+* Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and vary with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
+
 #### Discussion on algorithms
 ##### 1. Weight Decay: 
 - Decoupling (argument ```weight_decouple ``` appears in ```AdaBelief``` and ```RangerAdaBelief```): <br>
