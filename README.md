@@ -50,7 +50,7 @@ The default value is updated, please check if you specify these arguments or use
      >Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam) <br>
      >( eps of Adam in Tensorflow is 1e-7, in PyTorch is 1e-8, need to consider this when use AdaBelief in Tensorflow) <br>
      
-     >> If SGD is better than Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow <br>
+     >> If SGD is better than Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow )<br>
      >> If SGD is worse than Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps) <br>
      >> If AdamW is better than Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down) <br>
 
