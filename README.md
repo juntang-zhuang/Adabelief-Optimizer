@@ -45,7 +45,7 @@ The default value is updated, please check if you specify these arguments or use
 * Check if the code is from the latest official implementation (adabelief-pytorch==0.1.0, adabelief-tf==0.1.0)
       Default hyper-parameters are different from the old version.
 
-* In your experiment,
+* check all hyper-parameters, DO NOT simply use the default,
 
      >Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam) <br>
      >( eps of Adam in Tensorflow is 1e-7, in PyTorch is 1e-8, need to consider this when use AdaBelief in Tensorflow) <br>
