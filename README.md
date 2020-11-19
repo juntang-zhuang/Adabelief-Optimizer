@@ -47,12 +47,12 @@ The default value is updated, please check if you specify these arguments or use
 
 * In your experiment,
 
-     >Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam)
-     >( eps of Adam in Tensorflow is 1e-7, in PyTorch is 1e-8, need to consider this when use AdaBelief in Tensorflow)
+     >Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam) <br>
+     >( eps of Adam in Tensorflow is 1e-7, in PyTorch is 1e-8, need to consider this when use AdaBelief in Tensorflow) <br>
      
-     >> If SGD > Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow
-     >> If SGD < Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps)
-     >> If AdamW > Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down)
+     >> If SGD > Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow <br>
+     >> If SGD < Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps) <br>
+     >> If AdamW > Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down) <br>
 
 * Check ALL hyper-parameters. Refer to our github page for a list of recommended hyper-parameters
 
