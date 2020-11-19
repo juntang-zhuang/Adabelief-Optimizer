@@ -12,6 +12,7 @@
 - [Reproduce results in the paper ](#Reproduce-results-in-the-paper)
 - [Update Plan](#update-plan)
 - [Citation](#citation)
+- [Slides](https://www.dropbox.com/s/td8il34k4m57fem/NIPS2020_jqzx.pptx?dl=0)
 
 ## External Links
 <a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
