@@ -60,6 +60,8 @@ The default value is updated, please check if you specify these arguments or use
 ## Table of Hyper-parameters 
 ### Please check if you have specify all arguments and check your version is latest, the default might not be suitable for different tasks, see tables below
 ### Hyper-parameters in PyTorch
+* Note weight decay varies with tasks, for different tasks the weight decay is untuned from the original repository (only changed the optimizer and other hyper-parameters).
+
 |   Task   |  lr | beta1 | beta2 | epsilon | weight_decay | weight_decouple | rectify     | fixed_decay | amsgrad |
 |:--------:|-----|-------|-------|---------|--------------|-----------------|-------------|---------|---------|
 | Cifar    | 1e-3 | 0.9   | 0.999 | 1e-8    | 5e-4         | False           | False      | False   | False   |
