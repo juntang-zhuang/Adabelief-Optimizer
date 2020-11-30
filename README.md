@@ -15,7 +15,7 @@
 - [Slides](https://www.dropbox.com/s/td8il34k4m57fem/NIPS2020_jqzx.pptx?dl=0)
 
 ## External Links
-<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>
+<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>, <a href=“https://www.bilibili.com/video/BV1uy4y1q7RG”> BiliBili </a>
 
 ## Link to code for extra experiments with AdaBelief
 * SN-GAN https://github.com/juntang-zhuang/SNGAN-AdaBelief <br>
@@ -24,6 +24,7 @@
 * Reinforcement Learning (Toy) https://github.com/juntang-zhuang/rainbow-adabelief <br>
 * Object detection (by yuanwei2019) https://github.com/yuanwei2019/EAdam-optimizer (Note that this version uses ```adabelief-pytorch==0.0.5```, and the default hyper-parameters is different from ```adabelief-pytorch==0.1.0```. Please check your version of adabelief, and whether you specify all hyper-parameters, or does the default is what you want.) <br>
 * [Text classification](https://colab.research.google.com/drive/1wx-c5SRPLBomW9YNRvlOqoHy5aycV4lK?usp=sharing) and [word embedding](https://colab.research.google.com/drive/14N9SpP4OiDsGacASWXsTM44FfK5KU-jM?usp=sharing) in Tensorflow <br>
+* [Soft-Actor-Critic](https://github.com/juntang-zhuang/SAC-Adabelief)
 
 ## Update for ```adabelief-pytorch==0.1.0``` (Crucial)
 In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of for general tasks such as GAN and Transformer. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
@@ -73,7 +74,7 @@ The default value is updated, please check if you specify these arguments or use
 | SN-GAN (large)|2e-4 | 0.5   | 0.999 | 1e-16   | 0     | True=False (decay=0)| True      | False   | False   |
 | Transformer| 5e-4| 0.9 | 0.999  | 1e-16   | 1e-4         | True            | True      | False   | False   |
 | Reinforcement (Rainbow)| 1e-4 | 0.9 | 0.999 | 1e-10|     0.0           | True=False (decay=0)| True   | False   | False   |
-| Reinforcement (HalfCheetah-v2)| 1e-3 | 0.9 | 0.999 | 1e-16|     0.0           | True=False (decay=0)| True   | False   | False   |
+| Reinforcement (HalfCheetah-v2)| 1e-3 | 0.9 | 0.999 | 1e-12|     0.0           | True=False (decay=0)| True   | False   | False   |
 
 
 ### Hyper-parameters in Tensorflow (eps in Tensorflow might need to be larger than in PyTorch)
