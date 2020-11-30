@@ -22,7 +22,7 @@
 * Transformer (PyTorch 1.1) https://github.com/juntang-zhuang/transformer-adabelief <br>
 * Transformer (PyTorch 1.6) https://github.com/juntang-zhuang/fairseq-adabelief <br>
 * Reinforcement Learning (Toy) https://github.com/juntang-zhuang/rainbow-adabelief <br>
-* Reinforcement Learning (HalfCheetah-v2 Walker2d-v2) (https://github.com/juntang-zhuang/SAC-Adabelief) <br>
+* Reinforcement Learning (HalfCheetah-v2 Walker2d-v2) https://github.com/juntang-zhuang/SAC-Adabelief <br>
 * Object detection (by yuanwei2019) https://github.com/yuanwei2019/EAdam-optimizer (Note that this version uses ```adabelief-pytorch==0.0.5```, and the default hyper-parameters is different from ```adabelief-pytorch==0.1.0```. Please check your version of adabelief, and whether you specify all hyper-parameters, or does the default is what you want.) <br>
 * [Text classification](https://colab.research.google.com/drive/1wx-c5SRPLBomW9YNRvlOqoHy5aycV4lK?usp=sharing) and [word embedding](https://colab.research.google.com/drive/14N9SpP4OiDsGacASWXsTM44FfK5KU-jM?usp=sharing) in Tensorflow <br>
 
