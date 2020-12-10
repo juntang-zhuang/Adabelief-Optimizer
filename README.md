@@ -170,15 +170,13 @@ Please install the latest version from pip, old versions might suffer from bugs.
 AdaBelief uses a different denominator from Adam, and is orthogonal to other techniques such as recification, decoupled weight decay, weight averaging et.al.
 This implies when you use some techniques with Adam, to get a good result with AdaBelief you might still need those techniques.
 
-* ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x*x``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, will modify it later to 1e-12 or 1e-16 later.
+* ```epsilon``` in AdaBelief plays a different role as in Adam, typically when you use ```epslison=x``` in Adam, using ```epsilon=x*x``` will give similar results in AdaBelief. The default value ```epsilon=1e-8``` is not a good option in many cases, in version >0.1.0 the default eps is set as 1e-16.
 
-* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), such as on image recognition, you need to set a large ```epsilon```(e.g. 1e-8,1e-10) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, such as GAN, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
+* If you task needs a "non-adaptive" optimizer, which means SGD performs much better than Adam(W), such as on image recognition, you need to set a large ```epsilon```(e.g. 1e-8) for AdaBelief to make it more ```non-adaptive```; if your task needs a really ```adaptive``` optimizer, which means Adam is much better than SGD, such as GAN and Transformer, then the recommended ```epsilon``` for AdaBelief is small (1e-12, 1e-16 ...).
 
 * If decoupled weight decay is very important for your task, which means AdamW is much better than Adam, then you need to set ```weight_decouple``` as True to turn on decoupled decay in AdaBelief. Note that many optimizers uses decoupled weight decay without specifying it as an options, e.g. RAdam, but we provide it as an option so users are aware of what technique is actually used.
 
 * Don't use "gradient threshold" (clamp each element independently) in AdaBelief, it could result in division by 0 and explosion in update; but "gradient clip" (shrink amplitude of the gradient vector but keeps its direction) is fine, though from my limited experience sometimes the clip range needs to be the same or larger than Adam.
-
-* Settings to reproduce results in this repository. Note that ```epsilon``` and ```rectify``` are quite important, and vary with tasks. For scenario where "adaptivity" is crucial, such as SN-GAN and Transformer, use a small ```epsilon``` (1e-12 or 1e-16), and turn on ```rectify```.
 
 #### Discussion on algorithms
 ##### 1. Weight Decay: 
@@ -195,7 +193,7 @@ This implies when you use some techniques with Adam, to get a good result with A
    This is seldom discussed in the literature, but personally I think it's very important. When we set ```weight_decay=1e-4``` for SGD, the weight is scaled by ```1 - lr x weight_decay```. Two points need to be emphasized: (1) ```lr``` in SGD is typically larger than Adam (0.1 vs 0.001), so the weight decay in Adam needs to be set as a larger number to compensate. (2) ```lr``` decays, this means typically we use a larger weight decay in early phases, and use a small weight decay in late phases.
 
 ##### 2. Epsilon:
-AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training and LSTM, it's set as ```1e-12```. We recommend try different ```epsilon``` values in practice, and sweep through a large region, e.g. ```1e-8, 1e-10, 1e-12, 1e-14, 1e-16, 1e-18```. Typically a smaller ```epsilon``` makes it more adaptive.
+AdaBelief seems to require a different ```epsilon``` from Adam. In CV tasks in this paper, ```epsilon``` is set as ```1e-8```. For GAN training it's set as ```1e-16```. We recommend try different ```epsilon``` values in practice, and sweep through a large region. We recommend use ```eps=1e-8``` when SGD outperforms Adam, such as many CV tasks; recommend ```eps=1e-16``` when Adam outperforms SGD, such as GAN and Transformer. Sometimes you might need to try ```eps=1e-12```, such as in some reinforcement learning tasks. 
 
 ##### 3. Rectify (argument ```rectify``` in ```AdaBelief```):
 Whether to turn on the rectification as in RAdam. The recitification basically uses SGD in early phases for warmup, then switch to Adam. Rectification is implemented as an option, but is never used to produce results in the paper.
@@ -214,7 +212,7 @@ The experiments on Cifar is the same as demo in AdaBound, with the only differen
 
 ##### 7. Some experience with RNN
 I got some feedbacks on RNN on reddit discussion, here are a few tips:
-* The epsilon is suggested to set as a smaller value for RNN (e.g. 1e-12, 1e-14, 1e-16) though the default is 1e-8. Please try different epsilon values, it varies from task to task.
+* The epsilon is suggested to set as a smaller value for RNN (e.g. 1e-12, 1e-16). Please try different epsilon values, it varies from task to task.
 * I might confuse "gradient threshold" with "gradient clip" in previous readme, clarify below: <br>
   (1) By "gradient threshold" I refer to element-wise operation, which only takes values between a certain region [a,b]. Values outside this region will be set as a and b respectively.<br>
   (2) By "gradient clip" I refer to the operation on a vector or tensor. Suppose X is a tensor, if ||X|| > thres, then X <- X/||X|| * thres. Take X as a vector, "gradient clip" shrinks the amplitude but keeps the direction.<br>
@@ -229,10 +227,10 @@ Please contact me at ```j.zhuang@yale.edu``` or open an issue here if you would 
 * <del> Upload code for LSTM experiments. </del>
 * <del> (10/23/2020) Transformer trains fine locally with PyTorch 1.1 CUDA9.0 (BLEU score 35.74 (highest is 35.85) on IWSLT14 DE-En with small transformer), but works much worse on a server with PyTorch 1.4  CUDA 10.0 (BLEU score < 26) using the same code. 
 The code is to reproduce the error is at: https://github.com/juntang-zhuang/transformer-adabelief </del>
-* <del>Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
+* <del> Test AdaBelief on more examples, such as Transformer, Reinforcement Learning.</del>
 * <del> Merge Tensorflow improvements </del>
-* <del>Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
-* <del>Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)</del>
+* <del> Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
+* <del> Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)</del>
 * Solve the problem in mixed-precision with AdaBelief.
 * The AMSGrad implmentation might be problematic, https://github.com/juntang-zhuang/Adabelief-Optimizer/blob/414915cec37837eef0e6713c46c01c30dc704863/pypi_packages/adabelief_pytorch0.1.0/adabelief_pytorch/AdaBelief.py#L170.
 
