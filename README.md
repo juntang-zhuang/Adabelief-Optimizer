@@ -231,8 +231,8 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * <del> Merge Tensorflow improvements </del>
 * <del> Compare the rectified update, currently the implementation is slightly different from ```RAdam``` implementation.</del>
 * <del> Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)</del>
-* Solve the problem in mixed-precision with AdaBelief.
-* The AMSGrad implmentation might be problematic, https://github.com/juntang-zhuang/Adabelief-Optimizer/blob/414915cec37837eef0e6713c46c01c30dc704863/pypi_packages/adabelief_pytorch0.1.0/adabelief_pytorch/AdaBelief.py#L170.
+* Solve the problem in mixed-precision with AdaBelief, see discussion https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/31#issue-759823121
+* The AMSGrad implmentation might be problematic, see discusssion https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/32#issuecomment-742350592
 
 ### Done
 * Updated results on an SN-GAN is in https://github.com/juntang-zhuang/SNGAN-AdaBelief, AdaBelief achieves 12.36 FID (lower is better) on Cifar10, while Adam achieves 13.25 (number taken from the log of official repository ```PyTorch-studioGAN```).
