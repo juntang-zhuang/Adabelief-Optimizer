@@ -159,6 +159,16 @@ class AdaBelief(Optimizer):
                 bias_correction1 = 1 - beta1 ** state['step']
                 bias_correction2 = 1 - beta2 ** state['step']
 
+                # perform weight decay, check if decoupled weight decay
+                if self.weight_decouple:
+                    if not self.fixed_decay:
+                        p.data.mul_(1.0 - group['lr'] * group['weight_decay'])
+                    else:
+                        p.data.mul_(1.0 - group['weight_decay'])
+                else:
+                    if group['weight_decay'] != 0:
+                        grad.add_(p.data, alpha=group['weight_decay'])
+
                 # Update first and second moment running average
                 exp_avg.mul_(beta1).add_(grad, alpha=1 - beta1)
                 grad_residual = grad - exp_avg
@@ -173,16 +183,6 @@ class AdaBelief(Optimizer):
                     denom = (max_exp_avg_var.add_(group['eps']).sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
                 else:
                     denom = (exp_avg_var.add_(group['eps']).sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
-
-                # perform weight decay, check if decoupled weight decay
-                if self.weight_decouple:
-                    if not self.fixed_decay:
-                        p.data.mul_(1.0 - group['lr'] * group['weight_decay'])
-                    else:
-                        p.data.mul_(1.0 - group['weight_decay'])
-                else:
-                    if group['weight_decay'] != 0:
-                        grad.add_(p.data, alpha=group['weight_decay'])
 
                 # update
                 if not self.rectify:
