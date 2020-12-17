@@ -15,7 +15,7 @@
 - [Slides](https://www.dropbox.com/s/td8il34k4m57fem/NIPS2020_jqzx.pptx?dl=0)
 
 ## External Links
-<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>, <a href="https://www.bilibili.com/video/BV1uy4y1q7RG">BiliBili (中文)</a>, <a href="https://www.bilibili.com/video/BV1vi4y1c71S">BiliBili (Engligh)</a>, <a href="https://youtu.be/oGH7dmwvuaY">Youtube</a>, 
+<a href="https://juntang-zhuang.github.io/adabelief/"> Project Page</a>, <a href="https://arxiv.org/abs/2010.07468"> arXiv </a>, <a href="https://www.reddit.com/r/MachineLearning/comments/jc1fp2/r_neurips_2020_spotlight_adabelief_optimizer">Reddit </a>, <a href="https://twitter.com/JuntangZhuang/status/1316934184607354891">Twitter</a>, <a href="https://www.bilibili.com/video/BV1uy4y1q7RG">BiliBili (中文)</a>, <a href="https://www.bilibili.com/video/BV1vi4y1c71S">BiliBili (Engligh)</a>, <a href="https://youtu.be/oGH7dmwvuaY">Youtube</a>
 
 ## Link to code for extra experiments with AdaBelief
 * SN-GAN https://github.com/juntang-zhuang/SNGAN-AdaBelief <br>
