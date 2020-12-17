@@ -170,9 +170,9 @@ class AdaBelief(Optimizer):
                     torch.max(max_exp_avg_var, exp_avg_var, out=max_exp_avg_var)
 
                     # Use the max. for normalizing running avg. of gradient
-                    denom = (max_exp_avg_var.add_(group['eps']).sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
+                    denom = (max_exp_avg_var.add(group['eps']).sqrt_().div_(math.sqrt(bias_correction2))).add_(group['eps'])
                 else:
-                    denom = (exp_avg_var.add_(group['eps']).sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
+                    denom = (exp_avg_var.add(group['eps']).sqrt_().div_(math.sqrt(bias_correction2))).add_(group['eps'])
 
                 # perform weight decay, check if decoupled weight decay
                 if self.weight_decouple:
