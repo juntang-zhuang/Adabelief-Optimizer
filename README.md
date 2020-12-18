@@ -2,7 +2,7 @@
 <h3 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h3>
 
 ## Release of package
-We have released ```adabelief-pytorch==0.2.0``` and ```adabelief-tf==0.2.0```. Please use the latest version from pip.
+We have released ```adabelief-pytorch==0.2.0``` and ```adabelief-tf==0.2.0```. Please use the latest version from pip. Source code is available under folder ```pypi_packages/adabelief_pytorch0.2.0``` and ```pypi_packages/adabelief_tf0.2.0```.
 
 ## Table of Contents
 - [External Links](#external-links)
@@ -246,8 +246,8 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
   Code for transformer to work with PyTorch 1.1 and CUDA9.0 is at: https://github.com/juntang-zhuang/transformer-adabelief
 * Tested on a toy example of reinforcement learning. 
 * Released ```adabelief-pytorch==0.1.0``` and ```adabelief-tf==0.1.0```. The Tensorflow version now supports TF>=2.0 and Keras, with the same features as in the PyTorch version, including decoupled weight decay and rectification.
-* Released ```adabelief-pytorch==0.2.0``` and ```adabelief-tf==0.2.0```. Fix the error with coupled weight decay in ```adabelief-pytorch==0.1.0```, fix the ```amsgrad``` update in ```adabelief-pytorch==0.1.0```. Add options to disable the message printing, by specify ```print_change_log=False``` when initiating the optimizer.
-
+* Released ```adabelief-pytorch==0.2.0```. Fix the error with coupled weight decay in ```adabelief-pytorch==0.1.0```, fix the ```amsgrad``` update in ```adabelief-pytorch==0.1.0```. Add options to disable the message printing, by specify ```print_change_log=False``` when initiating the optimizer.
+* Released ```adabelief-tf==0.2.0```. Add options to disable the message printing, by specify ```print_change_log=False``` when initiating the optimizer. Delte redundant computations, so ```0.2.0``` should be faster than ```0.1.0```. Removed dependencies on ```tensorflow-addons```.
 ## Citation
 ```
 @article{zhuang2020adabelief,
