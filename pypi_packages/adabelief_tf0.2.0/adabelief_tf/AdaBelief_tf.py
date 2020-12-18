@@ -130,7 +130,7 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
             print(Fore.RED + default_table)
 
             recommend_table = tabulate([
-                ['Recommended eps = 1e-7', 'Recommended eps = 1e-14'],
+                ['Recommended epsilon = 1e-7', 'Recommended epsilon = 1e-14'],
                 ],
                 headers=['SGD better than Adam (e.g. CNN for Image Classification)','Adam better than SGD (e.g. Transformer, GAN)'])
             print(Fore.BLUE + recommend_table)
