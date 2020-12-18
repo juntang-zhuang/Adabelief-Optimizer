@@ -54,9 +54,9 @@ class AdaBelief(Optimizer):
             print(Fore.RED + default_table)
 
             recommend_table = tabulate([
-                ['SGD better than Adam (e.g. CNN for Image Classification)','1e-8','True',' Vary with problem '],
-                ['Adam better than SGD (Transformer, GAN)','1e-16','True','True']],
-                headers=['Cases','Recommended: eps for PyTorch version','Recommended: weight_decouple','Recommended: rectify'])
+                ['Recommended eps = 1e-8', 'Recommended eps = 1e-16'],
+                ],
+                headers=['SGD better than Adam (e.g. CNN for Image Classification)','Adam better than SGD (e.g. Transformer, GAN)'])
             print(Fore.BLUE + recommend_table)
 
             print(Fore.BLUE +'For a complete table of recommended hyperparameters, see')
