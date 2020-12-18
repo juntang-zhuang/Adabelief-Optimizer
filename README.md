@@ -1,5 +1,6 @@
 <h1 align="center">AdaBelief Optimizer</h1>
 <h3 align="center">NeurIPS 2020 Spotlight, trains fast as Adam, generalizes well as SGD, and is stable to train GANs.</h3>
+
 ## Release of package
 We have released ```adabelief-pytorch==0.2.0``` and ```adabelief-tf==0.2.0```. Please use the latest version from pip.
 
