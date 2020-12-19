@@ -90,9 +90,9 @@ The default value is updated, please check if you specify these arguments or use
 （ Results in the paper are all generated using the PyTorch implementation in ```adabelief-pytorch``` package, which is the __ONLY__ package that I have extensively tested for now.) <br>
 
 #### AdaBelief
-Please install latest version (0.1.0), previous version (0.0.5) uses different default arguments.
+Please install latest version (0.2.0), previous version (0.0.5) uses different default arguments.
 ```
-pip install adabelief-pytorch==0.1.0
+pip install adabelief-pytorch==0.2.0
 ```
 ```
 from adabelief_pytorch import AdaBelief
@@ -109,7 +109,7 @@ optimizer = RangerAdaBelief(model.parameters(), lr=1e-3, eps=1e-12, betas=(0.9,0
 ### 2. Tensorflow implementation (eps of AdaBelief in Tensorflow is larger than in PyTorch, same for Adam)
 Current tensorflow implementation is imcomplete, and does not support decoupled weight decay and rectification. Will update in release 0.1.0
 ```
-pip install adabelief-tf==0.1.0
+pip install adabelief-tf==0.2.0
 ```
 ```
 from adabelief_tf import AdaBeliefOptimizer
