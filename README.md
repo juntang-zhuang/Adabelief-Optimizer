@@ -29,21 +29,21 @@ We have released ```adabelief-pytorch==0.2.0``` and ```adabelief-tf==0.2.0```. P
 * Object detection (by yuanwei2019) https://github.com/yuanwei2019/EAdam-optimizer (Note that this version uses ```adabelief-pytorch==0.0.5```, and the default hyper-parameters is different from ```adabelief-pytorch==0.1.0```. Please check your version of adabelief, and whether you specify all hyper-parameters, or does the default is what you want.) <br>
 * [Text classification](https://colab.research.google.com/drive/1wx-c5SRPLBomW9YNRvlOqoHy5aycV4lK?usp=sharing) and [word embedding](https://colab.research.google.com/drive/14N9SpP4OiDsGacASWXsTM44FfK5KU-jM?usp=sharing) in Tensorflow <br>
 
-## Update for ```adabelief-pytorch==0.1.0``` (Crucial)
+## Update for ```adabelief-pytorch==0.2.0``` (Crucial)
 In the next release of ```adabelief-pytorch```, we will modify the default of several arguments, in order to fit the needs of for general tasks such as GAN and Transformer. Please check if you specify these arguments or use the default when upgrade from version 0.0.5 to higher.
 
 |   Version| epsilon | weight_decouple | rectify     | 
 |:--------:|---------|-----------------|-------------|
 |   adabelief-pytorch=0.0.5 |   1e-8  |   False         |   False     |
-|   latest version 0.1.0>0.0.5|    1e-16 |    True         |    True     |
+|   latest version 0.2.0>0.0.5|    1e-16 |    True         |    True     |
 
-## Update for ```adabelief-tf==0.1.0``` (Crucial)
+## Update for ```adabelief-tf==0.2.0``` (Crucial)
 In ```adabelief-tf==0.1.0```, we modify ```adabelief-tf``` to have the same feature as ```adabelief-pytorch```, inlcuding decoupled weight decay and learning rate rectification. Furthermore, we will add support for TensorFlow>=2.0 and Keras. The source code is in ```pypi_packages/adabelief_tf0.1.0```. We tested with a [text classification task](https://colab.research.google.com/drive/1wx-c5SRPLBomW9YNRvlOqoHy5aycV4lK?usp=sharing) and a [word embedding task](https://colab.research.google.com/drive/14N9SpP4OiDsGacASWXsTM44FfK5KU-jM?usp=sharing). 
 The default value is updated, please check if you specify these arguments or use the default when upgrade from version 0.0.1 to higher.:
 |   Version| epsilon | weight_decouple | rectify     | 
 |:--------:|---------|-----------------|-------------|
 |   adabelief-tf=0.0.1 |   1e-8  |   Not supported         |   Not supported     |
-|   latest version 0.1.0>0.0.1|    1e-14 |    Supported         |    default: True     |
+|   latest version 0.2.0>0.0.1|    1e-14 |    Supported         |    default: True     |
 
 ## Quick Guide
 
