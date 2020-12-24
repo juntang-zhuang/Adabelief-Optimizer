@@ -58,7 +58,7 @@ The default value is updated, please check if you specify these arguments or use
      >> >> If SGD is better than Adam   ->  Set a large eps (1e-8) in AdaBelief-pytorch (1e-7 in Tensorflow )<br>
      >> >> If SGD is worse than Adam   ->  Set a small eps (1e-16) in AdaBelief-pytorch (1e-14 in Tensorflow, rectify=True often helps) <br>
      
-     >> If AdamW is better than Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down) <br>
+     >> If AdamW is better than Adam   ->   Turn on “weight_decouple”  in AdaBelief-pytorch (this is on in adabelief-tf==0.1.0 and cannot shut down). Note that default weight decay is very different for Adam and AdamW, you might need to consider this when using AdaBelief with and without decoupled weight decay. <br>
 
 * Check ALL hyper-parameters. Refer to our github page for a list of recommended hyper-parameters
 
