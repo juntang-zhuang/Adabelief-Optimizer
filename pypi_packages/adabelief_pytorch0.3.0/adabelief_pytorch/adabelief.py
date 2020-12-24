@@ -1,16 +1,17 @@
 import math
 import torch
-from .optimizer import Optimizer
+from torch.optim.optimizer import Optimizer
 
 class AdaBelief(Optimizer):
     r"""Implements AdaBelief algorithm proposed in 'AdaBelief optimizer, adapting stepsizes by the 
     belief in observed gradients'_.
     Recommendation on hyper-parameters\:
-    * For cases where SGD outperforms Adam (e.g. CNN for image classification), a large eps is recommended (1e-8)
-    * For cases where Adam outperforms SGD (e.g. Transformer, GAN), a small eps is recommended (1e-16)
-    * If weight_decouple == True, then the weight is scaled by (1 - lr * weight_decay).
-    Note that default lr is different for Ada-optimizers and SGD, hence weight_decy needs to be rescaled.
-    * For a full list of recommended hyper-parameters, see https://github.com/juntang-zhuang/Adabelief-Optimizer
+    >> Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam) <br>    
+    >> If SGD is better than Adam  ->  Set a large eps (1e-8) <br>
+    >> If SGD is worse than Adam   ->  Set a small eps (1e-16) (rectify=True often helps) <br>
+    >> If AdamW is better than Adam  ->  Turn on “weight_decouple” <br>
+    >> Note that default "weight_decay" is very different for Adam and AdamW, need to consider this when using AdaBelief with and without "weight_decouple". <br>
+    >> For a full list of recommended hyper-parameters, see https://github.com/juntang-zhuang/Adabelief-Optimizer
 
     Arguments:
         params (iterable): iterable of parameters to optimize or dicts defining
@@ -58,6 +59,8 @@ class AdaBelief(Optimizer):
             raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
         if not 0.0 <= betas[1] < 1.0:
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
+        if not 0.0 <= weight_decay:
+            raise ValueError("Invalid weight_decay value: {}".format(weight_decay))
 
         self.degenerated_to_sgd = degenerated_to_sgd
         if isinstance(params, (list, tuple)) and len(params) > 0 and isinstance(params[0], dict):

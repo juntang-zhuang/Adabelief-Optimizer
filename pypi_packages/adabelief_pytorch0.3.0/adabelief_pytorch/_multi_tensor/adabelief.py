@@ -7,11 +7,12 @@ class AdaBelief(Optimizer):
     r"""Implements AdaBelief algorithm proposed in 'AdaBelief optimizer, adapting stepsizes by the 
     belief in observed gradients'_.
     Recommendation on hyper-parameters\:
-    * For cases where SGD outperforms Adam (e.g. CNN for image classification), a large eps is recommended (1e-8)
-    * For cases where Adam outperforms SGD (e.g. Transformer, GAN), a small eps is recommended (1e-16)
-    * If weight_decouple == True, then the weight is scaled by (1 - lr * weight_decay).
-    Note that default lr is different for Ada-optimizers and SGD, hence weight_decy needs to be rescaled.
-    * For a full list of recommended hyper-parameters, see https://github.com/juntang-zhuang/Adabelief-Optimizer
+    >> Epsilon in AdaBelief is different from Adam (typically eps_adabelief = eps_adam*eps_adam) <br>    
+    >> If SGD is better than Adam  ->  Set a large eps (1e-8) <br>
+    >> If SGD is worse than Adam   ->  Set a small eps (1e-16) (rectify=True often helps) <br>
+    >> If AdamW is better than Adam  ->  Turn on “weight_decouple” <br>
+    >> Note that default "weight_decay" is very different for Adam and AdamW, need to consider this when using AdaBelief with and without "weight_decouple". <br>
+    >> For a full list of recommended hyper-parameters, see https://github.com/juntang-zhuang/Adabelief-Optimizer
 
     Arguments:
         params (iterable): iterable of parameters to optimize or dicts defining
@@ -59,6 +60,8 @@ class AdaBelief(Optimizer):
             raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
         if not 0.0 <= betas[1] < 1.0:
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
+        if not 0.0 <= weight_decay:
+            raise ValueError("Invalid weight_decay value: {}".format(weight_decay))
 
         self.degenerated_to_sgd = degenerated_to_sgd
         if isinstance(params, (list, tuple)) and len(params) > 0 and isinstance(params[0], dict):
@@ -73,12 +76,6 @@ class AdaBelief(Optimizer):
         self.degenerated_to_sgd = degenerated_to_sgd
         self.weight_decouple = weight_decouple
         self.rectify = rectify
-        if self.weight_decouple:
-            print('Weight decoupling enabled in AdaBelief')
-        if self.rectify:
-            print('Rectification enabled in AdaBelief')
-        if amsgrad:
-            print('AMSGrad enabled in AdaBelief')
 
     def __setstate__(self, state):
         super(AdaBelief, self).__setstate__(state)
@@ -115,7 +112,7 @@ class AdaBelief(Optimizer):
 
                     # perform weight decay, check if decoupled weight decay
                     if self.weight_decouple:
-                        p.data.mul_(1.0 - group['lr'] * group['weight_decay'])
+                        p.mul_(1.0 - group['lr'] * group['weight_decay'])
                     else:
                         if group['weight_decay'] != 0:
                             p.grad.add_(p.data, alpha=group['weight_decay'])
@@ -157,38 +154,42 @@ class AdaBelief(Optimizer):
             torch._foreach_mul_(exp_avg, beta1)
             torch._foreach_add_(exp_avg, grads, alpha=1 - beta1)
 
-            difs = torch._foreach_sub( grads, exp_avg )
+            difs = torch._foreach_add( grads, exp_avg, alpha=-1.0 )
 
             torch._foreach_mul_(exp_avg_sq, beta2)
             torch._foreach_addcmul_(exp_avg_sq, difs, difs, 1 - beta2)
+            
             torch._foreach_add_(exp_avg_sq, group['eps'])
 
             if amsgrad:
                 # Maintains the maximum of all 2nd moment running avg. till now
-                max_exp_avg_sq = torch._foreach_maximum(max_exp_avg_sq, exp_avg_sq)
+                #max_exp_avg_sq = torch._foreach_maximum(max_exp_avg_sq, exp_avg_sq)
+                [torch.max(a, b, out=a) for a, b in zip(max_exp_avg_sq, exp_avg_sq)]
 
                 # Use the max. for normalizing running avg. of gradient
                 max_exp_avg_sq_sqrt = torch._foreach_sqrt(max_exp_avg_sq)
                 bias_correction_sqrt = [math.sqrt(bc) for bc in bias_correction2]
-                torch._foreach_div_(max_exp_avg_sq_sqrt, bias_correction_sqrt)
+                torch._foreach_div_scalar_list_(max_exp_avg_sq_sqrt, bias_correction_sqrt)
                 denom = torch._foreach_add(max_exp_avg_sq_sqrt, group['eps'])
             else:
                 exp_avg_sq_sqrt = torch._foreach_sqrt(exp_avg_sq)
                 bias_correction_sqrt = [math.sqrt(bc) for bc in bias_correction2]
-                torch._foreach_div_(exp_avg_sq_sqrt, bias_correction_sqrt)
+                torch._foreach_div_scalar_list_(exp_avg_sq_sqrt, bias_correction_sqrt)
                 denom = torch._foreach_add(exp_avg_sq_sqrt, group['eps'])
 
             # update:
             if not self.rectify:
                 step_size = [-1 * (group['lr'] / bc) for bc in bias_correction1]
-                torch._foreach_addcdiv_(params_with_grad, exp_avg, denom, step_size)
+                #torch._foreach_addcdiv_(params_with_grad, exp_avg, denom, step_size)
+                for i in range(len(step_size)):
+                    params_with_grad[i].addcdiv_(exp_avg[i], denom[i], value=step_size[i])
             else: # rectified update
                 N_smas, rectify_step_sizes = self.get_rectification_factor(group)
                 # split list by rectification
                 conf_params_with_grad, conf_exp_avg, conf_denom, conf_step_size = [], [], [], []
                 inconf_params_with_grad, inconf_exp_avg, inconf_denom, inconf_step_size = [], [], [], []
-                for (_param_with_grad, _exp_avg, _denom, _N_sma, _rec_step_size) in zip( params_with_grad, exp_avg, deno, N_smas, rectify_step_sizes):
-                    if N_smas >= 5:
+                for (_N_sma,_param_with_grad, _exp_avg, _denom, _N_sma, _rec_step_size) in zip(N_smas, params_with_grad, exp_avg, denom, N_smas, rectify_step_sizes):
+                    if _N_sma >= 5.0:
                         conf_params_with_grad.append(_param_with_grad)
                         conf_exp_avg.append(_exp_avg)
                         conf_denom.append(_denom)
@@ -200,14 +201,22 @@ class AdaBelief(Optimizer):
                         inconf_step_size.append( -group['lr'] * _rec_step_size )
                 
                 # update parameters by confidence
-                torch._foreach_addcdiv_(conf_params_with_grad, conf_exp_avg, conf_denom, conf_step_size) # Adam-type update
-                torch._foreach_add_( inconf_params_with_grad, inconf_exp_avg, inconf_step_size ) # SGD-type update
+                if len(conf_params_with_grad) > 0:# Adam-type update
+                    #torch._foreach_addcdiv_(conf_params_with_grad, conf_exp_avg, conf_denom, conf_step_size) 
+                    for i in range(len(conf_params_with_grad)):
+                        conf_params_with_grad[i].addcdiv_(conf_exp_avg[i], conf_denom[i], value=conf_step_size[i])
+                if len(inconf_params_with_grad) > 0:# SGD-type update
+                    #torch._foreach_add_( inconf_params_with_grad, inconf_exp_avg, inconf_step_size) 
+                    for i in range(len(inconf_params_with_grad)):
+                        inconf_params_with_grad[i].add_(inconf_exp_avg[i], alpha=inconf_step_size[i])
+                    
 
         return loss
     
     def get_rectification_factor(self, group):
         rectify_step_sizes = []
-        N_smas = [] 
+        N_smas = []
+        beta1, beta2 = group['betas']
 
         for p in group['params']:
             if p.grad is None:
@@ -242,26 +251,3 @@ class AdaBelief(Optimizer):
             N_smas.append(N_sma)
             rectify_step_sizes.append(step_size)
         return N_smas, rectify_step_sizes
-
-    # TODO: refactor to a base class once foreach ops are in a good shape.
-    def zero_grad(self, set_to_none: bool = False):
-        per_device_and_dtype_grads = defaultdict(lambda: defaultdict(list))
-        for group in self.param_groups:
-            for p in group['params']:
-                if p.grad is not None:
-                    if set_to_none:
-                        p.grad = None
-                    else:
-                        if p.grad.grad_fn is not None:
-                            p.grad.detach_()
-                        else:
-                            p.grad.requires_grad_(False)
-
-                        if p.grad.is_sparse:
-                            p.grad.zero_()
-                        else:
-                            per_device_and_dtype_grads[p.grad.device][p.grad.dtype].append(p.grad)
-
-            for _, per_dtype_grads in per_device_and_dtype_grads.items():
-                for grads in per_dtype_grads.values():
-                    torch._foreach_zero_(grads)

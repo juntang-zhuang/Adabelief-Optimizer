@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="adabelief_pytorch", 
-    version="0.2.1",
+    version="0.3.0",
     author="Juntang Zhuang",
     author_email="j.zhuang@yale.edu",
     description="PyTorch implementation of AdaBelief Optimizer",
