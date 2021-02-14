@@ -1,9 +1,0 @@
-README.md
-setup.py
-adabelief_pytorch/AdaBelief.py
-adabelief_pytorch/__init__.py
-adabelief_pytorch.egg-info/PKG-INFO
-adabelief_pytorch.egg-info/SOURCES.txt
-adabelief_pytorch.egg-info/dependency_links.txt
-adabelief_pytorch.egg-info/requires.txt
-adabelief_pytorch.egg-info/top_level.txt
