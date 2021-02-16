@@ -100,7 +100,7 @@ class MSVAG(Optimizer):
                 bias_correction2 = 1 - beta2 ** state['step']
 
                 m = exp_avg / bias_correction1
-                v = exp_avg_sq / bias_correction1
+                v = exp_avg_sq / bias_correction2
 
                 if state['step'] == 0:
                     gamma = 1.0
