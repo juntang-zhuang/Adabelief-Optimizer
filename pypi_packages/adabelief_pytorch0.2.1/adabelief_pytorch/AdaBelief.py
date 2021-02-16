@@ -35,13 +35,12 @@ class AdaBelief(Optimizer):
             when variance of gradient is high
         print_change_log (boolean, optional) (default: True) If set as True, print the modifcation to
             default hyper-parameters
-        min_denom (float, optional) (default: 0.0) Denominator = max(denominator, min_denom)
     reference: AdaBelief Optimizer, adapting stepsizes by the belief in observed gradients, NeurIPS 2020
     """
 
     def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-16,
                  weight_decay=0, amsgrad=False, weight_decouple=True, fixed_decay=False, rectify=True,
-                 degenerated_to_sgd=True, print_change_log = True, min_denom = 0.0):
+                 degenerated_to_sgd=True, print_change_log = True):
 
         # ------------------------------------------------------------------------------
         # Print modifications to default arguments
@@ -91,7 +90,6 @@ class AdaBelief(Optimizer):
         self.weight_decouple = weight_decouple
         self.rectify = rectify
         self.fixed_decay = fixed_decay
-        self.min_denom = min_denom
         if self.weight_decouple:
             print('Weight decoupling enabled in AdaBelief')
             if self.fixed_decay:
@@ -198,15 +196,13 @@ class AdaBelief(Optimizer):
                 if amsgrad:
                     max_exp_avg_var = state['max_exp_avg_var']
                     # Maintains the maximum of all 2nd moment running avg. till now
-                    torch.max(max_exp_avg_var, exp_avg_var, out=max_exp_avg_var)
+                    torch.max(max_exp_avg_var, exp_avg_var.add_(group['eps']), out=max_exp_avg_var)
 
                     # Use the max. for normalizing running avg. of gradient
                     denom = (max_exp_avg_var.sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
                 else:
-                    denom = (exp_avg_var.sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
+                    denom = (exp_avg_var.add_(group['eps']).sqrt() / math.sqrt(bias_correction2)).add_(group['eps'])
                 
-                denom = torch.clamp(denom, min=self.min_denom)
-
                 # update
                 if not self.rectify:
                     # Default update
