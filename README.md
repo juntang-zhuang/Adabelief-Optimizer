@@ -134,7 +134,7 @@ optimizer = AdaBeliefOptimizer(learning_rate=1e-3, epsilon=1e-14, rectify=False)
 See folder ``PyTorch_Experiments``, for each subfolder, execute ```sh run.sh```. See  ```readme.txt``` in each subfolder for visualization, or
 refer to jupyter notebook for visualization.
 
-### Results on Image Recongnition 
+### Results on Image Recognition 
 <p align="center">
 <img src="./imgs/image_recog.png" width="80%"/> 
 </p>
