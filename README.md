@@ -237,7 +237,7 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * <del> Correct the [coding error in RangerAdaBelief](https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/17#issue-728833323)</del>
 * <del> The AMSGrad implmentation might be problematic, see discusssion https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/32#issuecomment-742350592 </del>
 * <del> Coupled weight decay in adabelief-pytorch=0.1.0 is not working, though does not affect decoupled weight decay. https://github.com/juntang-zhuang/Adabelief-Optimizer/pull/33#issue-539128103 </del>
-* Solve the problem in mixed-precision with AdaBelief, see discussion https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/31#issue-759823121
+* <del> Solve the problem in mixed-precision with AdaBelief, see discussion https://github.com/juntang-zhuang/Adabelief-Optimizer/issues/31#issue-759823121 </del>
 * Implement fused version (as in apex) for faster speed.
 
 ### Done
@@ -249,6 +249,7 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
 * Released ```adabelief-pytorch==0.1.0``` and ```adabelief-tf==0.1.0```. The Tensorflow version now supports TF>=2.0 and Keras, with the same features as in the PyTorch version, including decoupled weight decay and rectification.
 * Released ```adabelief-pytorch==0.2.0```. Fix the error with coupled weight decay in ```adabelief-pytorch==0.1.0```, fix the ```amsgrad``` update in ```adabelief-pytorch==0.1.0```. Add options to disable the message printing, by specify ```print_change_log=False``` when initiating the optimizer.
 * Released ```adabelief-tf==0.2.0```. Add options to disable the message printing, by specify ```print_change_log=False``` when initiating the optimizer. Delte redundant computations, so ```0.2.0``` should be faster than ```0.1.0```. Removed dependencies on ```tensorflow-addons```.
+* ```adabelief-pytorch==0.2.1``` is compatible with mixed-precision training.
 ## Citation
 ```
 @article{zhuang2020adabelief,
