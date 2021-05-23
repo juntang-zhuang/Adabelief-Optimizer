@@ -254,7 +254,8 @@ def main_worker(gpu, ngpus_per_node, args):
     elif args.optimizer == 'adabound':
         optimizer = AdaBound(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2))
     elif args.optimizer == 'adabelief':
-        optimizer = AdaBelief(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decouple = args.weight_decouple, weight_decay = args.weight_decay, fixed_decay = args.fixed_decay)
+        optimizer = AdaBelief(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decouple = args.weight_decouple, 
+                              weight_decay = args.weight_decay, fixed_decay = args.fixed_decay, rectify=False)
     elif args.optimizer == 'adamw':
         optimizer = AdamW(model.parameters(), args.lr, eps=args.eps, betas=(args.beta1, args.beta2), weight_decay = args.weight_decay)
     #elif args.optimizer == 'msvag':
