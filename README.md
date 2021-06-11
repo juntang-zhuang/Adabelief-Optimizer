@@ -43,7 +43,7 @@ The default value is updated, please check if you specify these arguments or use
 |   Version| epsilon | weight_decouple | rectify     | 
 |:--------:|---------|-----------------|-------------|
 |   adabelief-tf=0.0.1 |   1e-8  |   Not supported         |   Not supported     |
-|   latest version 0.2.0>0.0.1|    1e-14 |    Supported         |    default: True     |
+|   latest version 0.2.0>0.0.1|    1e-14 |    Supported (Not an option in arguments)        |    default: True     |
 
 ## Quick Guide
 
