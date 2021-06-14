@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: adabelief-tf
+Version: 0.2.1
+Summary: Tensorflow implementation of AdaBelief Optimizer
+Home-page: https://juntang-zhuang.github.io/adabelief/
+Author: Juntang Zhuang
+Author-email: j.zhuang@yale.edu
+License: UNKNOWN
+Description: Tensorflow implementation of AdaBelief Optimizer
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
