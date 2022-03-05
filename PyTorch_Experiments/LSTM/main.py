@@ -10,7 +10,7 @@ import model
 
 from utils import batchify, get_batch, repackage_hidden
 from adabound import AdaBound
-from AdaBelief import AdaBelief
+from adabelief_pytorch import AdaBelief
 from yogi import Yogi
 from MSVAG import MSVAG
 from RAdam import RAdam
