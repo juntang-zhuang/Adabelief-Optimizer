@@ -22,7 +22,7 @@ from shufflenet import *
 from senet import *
 import pandas as pd
 from SGD_GC import SGD_GC
-from AdaBelief import AdaBelief
+from adabelief_pytorch import AdaBelief
 from AdamW import AdamW
 from RAdam import RAdam
 #from MSVAG import MSVAG
