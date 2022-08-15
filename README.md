@@ -258,4 +258,11 @@ The code is to reproduce the error is at: https://github.com/juntang-zhuang/tran
   journal={Conference on Neural Information Processing Systems},
   year={2020}
 }
+@article{zhuang2021acprop,
+  title={Momentum Centering and Asynchronous Update for Adaptive Gradient Methods},
+  author={Zhuang, Juntang and Ding, Yifan and Tang, Tommy and Dvornek, Nicha and Tatikonda, Sekhar and Duncan, James},
+  journal={Advances in Neural Information Processing Systems},
+  volume={34},
+  year={2021}
+}
 ```
