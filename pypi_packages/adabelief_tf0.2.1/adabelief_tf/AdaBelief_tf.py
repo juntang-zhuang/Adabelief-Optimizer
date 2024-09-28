@@ -1,29 +1,17 @@
-# Copyright 2020 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
 """AdaBeliefOptimizer optimizer."""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from packaging import version
 import tensorflow as tf
+if version.parse(tf.__version__) >= version.parse("2.11.0"):
+    from tensorflow.keras.optimizers.legacy import Optimizer
+else:
+    from tensorflow.keras.optimizers import Optimizer
 
-from tabulate import tabulate
-from colorama import Fore, Back, Style
 
-
-class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
+class AdaBeliefOptimizer(Optimizer):
     """
     It implements the AdaBeliefOptimizer proposed by
     Juntang Zhuang et al. in [AdaBelief Optimizer: Adapting stepsizes by the belief
@@ -119,31 +107,6 @@ class AdaBeliefOptimizer(tf.keras.optimizers.Optimizer):
                 compatibility, recommended to use `learning_rate` instead.
         """
         super().__init__(name, **kwargs)
-
-        # ------------------------------------------------------------------------------
-        # Print modifications to default arguments
-        if print_change_log:
-            print(Fore.RED + 'Please check your arguments if you have upgraded adabelief-tf from version 0.0.1.')
-            print(Fore.RED + 'Modifications to default arguments:')
-            default_table = tabulate([
-                ['adabelief-tf=0.0.1','1e-8','Not supported','Not supported'],
-                ['>=0.1.0 (Current 0.2.1)','1e-14','supported','default: True']],
-                headers=['eps','weight_decouple','rectify'])
-            print(Fore.RED + default_table)
-
-            recommend_table = tabulate([
-                ['Recommended epsilon = 1e-7', 'Recommended epsilon = 1e-14'],
-                ],
-                headers=['SGD better than Adam (e.g. CNN for Image Classification)','Adam better than SGD (e.g. Transformer, GAN)'])
-            print(Fore.BLUE + recommend_table)
-
-            print(Fore.BLUE +'For a complete table of recommended hyperparameters, see')
-            print(Fore.BLUE + 'https://github.com/juntang-zhuang/Adabelief-Optimizer')
-
-            print(Fore.GREEN + 'You can disable the log message by setting "print_change_log = False", though it is recommended to keep as a reminder.')
-
-            print(Style.RESET_ALL)
-        # ------------------------------------------------------------------------------
 
         self._set_hyper("learning_rate", kwargs.get("lr", learning_rate))
         self._set_hyper("beta_1", beta_1)

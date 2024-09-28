@@ -1,0 +1,31 @@
+# Continuous integration for adabelief_tf
+
+name: CI
+
+on:
+  push:
+
+jobs:
+  ci_test:
+    name: CI build and test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8, 3.9, '3.10', '3.11']
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build
+        run: |
+          python3 --version
+          pip install pypi_packages/adabelief_tf0.2.1/
+          pip check
+      - name: Test
+        run: |
+          pip install pytest
+          pytest pypi_packages/adabelief_tf0.2.1/AdaBelief_tf2_test.py

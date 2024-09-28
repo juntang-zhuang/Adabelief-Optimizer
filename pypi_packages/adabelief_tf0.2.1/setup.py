@@ -9,19 +9,17 @@ setuptools.setup(
     author="Juntang Zhuang",
     author_email="j.zhuang@yale.edu",
     description="Tensorflow implementation of AdaBelief Optimizer",
-    long_description="Tensorflow implementation of AdaBelief Optimizer",
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://juntang-zhuang.github.io/adabelief/",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'tensorflow>=2.0.0',
-          'colorama>=0.4.0',
-          'tabulate>=0.7',
+          'tensorflow>=2.0.0,<2.16.0',
       ],
     python_requires='>=3.6',
 )
